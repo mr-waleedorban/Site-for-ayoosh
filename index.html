@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11:11 — عالم أوشا السري ❤️</title>
+  <meta name="description" content="عالم تفاعلي ثلاثي الأبعاد ومفاجأة 11:11 خاصة لأوشا (آيوش)" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    body {
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+      background-color: #090B1C;
+      color: #F5EAF2;
+      overflow-x: hidden;
+      margin: 0;
+    }
+    .font-mono-tabular {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body class="bg-[#090B1C] text-[#F5EAF2] selection:bg-[#FF8EBD]/30 selection:text-[#FF8EBD]">
+  <!-- Fixed 3D WebGL Universe Canvas -->
+  <div id="webgl-universe" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <!-- Intro Portal Overlay -->
+  <div id="intro-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-between p-6 bg-[#090B1C]/95 text-center">
+    <div class="w-full max-w-5xl flex justify-between items-center">
+      <span class="font-mono-tabular text-xs text-[#E9C88B]">11:11 // OSHA UNIVERSE</span>
+      <button onclick="enterSite()" class="px-4 py-2 text-xs font-bold border border-[#E9C88B]/40 rounded-lg text-[#E9C88B] cursor-pointer">تخطي المقدمة</button>
+    </div>
+    <div class="max-w-2xl space-y-6 my-auto">
+      <div class="text-7xl sm:text-9xl font-extrabold font-mono-tabular text-[#E9C88B]">11:11</div>
+      <h1 id="intro-line1" class="text-2xl sm:text-4xl font-bold"></h1>
+      <p id="intro-line2" class="text-lg text-[#F5EAF2]/80"></p>
+      <button onclick="enterSite()" class="px-8 py-4 text-lg font-extrabold text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] rounded-xl shadow-lg cursor-pointer">
+        يلا افتحي المفاجأة ✨
+      </button>
+    </div>
+    <div class="text-xs font-mono-tabular text-[#F5EAF2]/60">03.10.2024 · 01.01.2008 · 11.11.2026</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="relative z-10">
+    <header class="sticky top-0 z-40 bg-[#090B1C]/90 border-b border-[#E9C88B]/20 px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
+      <a href="#hero" class="text-lg font-extrabold text-[#E9C88B]">11:11 · عالم أوشا ❤️</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+        <a href="#story" class="hover:text-[#FF8EBD]">حكايتنا</a>
+        <a href="#letters" class="hover:text-[#FF8EBD]">الرسائل الـ 11</a>
+        <a href="#boxes" class="hover:text-[#FF8EBD]">الصناديق السرية</a>
+        <a href="#pdf-sec" class="hover:text-[#FF8EBD]">ملف الـ PDF</a>
+        <a href="#cake-sec" class="hover:text-[#FF8EBD]">تورتة أوشا</a>
+      </nav>
+      <span id="hearts-badge" class="text-xs font-bold text-[#FF8EBD]">القلوب: 0 / 5 ❤️</span>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 space-y-24 py-12">
+      <!-- Hero -->
+      <section id="hero" class="text-center space-y-6 py-12">
+        <button onclick="findHeart('h1', this)" class="px-3 py-1 text-xs rounded-lg bg-[#17102B] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #1 ❤️</button>
+        <div class="text-6xl font-mono-tabular font-extrabold text-[#E9C88B]">11:11</div>
+        <h1 class="text-4xl sm:text-6xl font-extrabold">Happy 11:11 يا أوشا ❤️</h1>
+        <p class="text-2xl font-bold text-[#FF8EBD]">بحبك يا أحلى وأجمل بنوتة في حياتي.</p>
+        <p class="text-base sm:text-lg text-[#F5EAF2]/85 max-w-2xl mx-auto">وعشان كده عملتلك حاجة صغيرة... بس واخدة وقت وتفكير أكتر مما تتخيلي 😂</p>
+        <div class="pt-4">
+          <button onclick="nextRandomLove()" class="px-6 py-3 rounded-xl bg-[#17102B] border border-[#E9C88B]/40 font-bold text-sm cursor-pointer">رسالة عشوائية لـ أوشا ✨</button>
+          <p id="random-msg-box" class="mt-4 text-lg font-bold text-[#E9C88B]"></p>
+        </div>
+      </section>
+
+      <!-- Counter & Story -->
+      <section id="story" class="space-y-8">
+        <div class="flex justify-between items-center border-b border-[#E9C88B]/20 pb-4">
+          <h2 class="text-3xl font-extrabold">إحنا بقالنا قد إيه بنتكلم؟ (من 03 أكتوبر 2024)</h2>
+          <button onclick="findHeart('h2', this)" class="px-3 py-1 text-xs rounded-lg bg-[#17102B] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #2 ❤️</button>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center" id="live-counter"></div>
+        <div class="p-4 rounded-xl bg-[#17102B] border border-[#FF8EBD]/40 text-center font-bold">01.01.2008 — يوم ميلاد أوشا ❤️</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="timeline-grid"></div>
+      </section>
+
+      <!-- 11 Love Letters -->
+      <section id="letters" class="space-y-6">
+        <h2 class="text-3xl font-extrabold border-b border-[#E9C88B]/20 pb-4">الـ 11 رسالة حب لـ أوشا 💌</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="letters-grid"></div>
+        <div id="letter-viewer" class="p-6 rounded-2xl bg-[#17102B] border border-[#E9C88B]/45 text-lg font-bold"></div>
+      </section>
+
+      <!-- 5 Mystery Boxes -->
+      <section id="boxes" class="space-y-6">
+        <h2 class="text-3xl font-extrabold border-b border-[#E9C88B]/20 pb-4">الصناديق السرية الخمسة 🎁</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3" id="boxes-grid"></div>
+        <div id="box-viewer" class="p-6 rounded-2xl bg-[#17102B] border border-[#FF8EBD]/45 text-xl font-extrabold text-center"></div>
+      </section>
+
+      <!-- PDF Easter Egg -->
+      <section id="pdf-sec" class="p-8 rounded-2xl bg-[#17102B] border border-[#E9C88B]/40 space-y-4">
+        <div class="flex justify-between items-center">
+          <h2 class="text-3xl font-extrabold text-[#E9C88B]">ملف القضية رقم 11:11 📁</h2>
+          <button onclick="findHeart('h3', this)" class="px-3 py-1 text-xs rounded-lg bg-[#090B1C] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #3 ❤️</button>
+        </div>
+        <p class="text-lg font-bold text-[#FF8EBD]">أحلى ملف PDF جمعنا سوا 😍😂</p>
+        <button onclick="document.getElementById('pdf-details').classList.toggle('hidden')" class="px-6 py-3 font-extrabold text-[#090B1C] bg-[#E9C88B] rounded-xl cursor-pointer">افتحي الملف الأسطوري</button>
+        <div id="pdf-details" class="hidden p-5 rounded-xl bg-[#090B1C] border border-[#FF8EBD]/30 space-y-2">
+          <p class="text-[#E9C88B] font-bold">تم العثور على ملف تاريخي نادر...</p>
+          <p class="font-bold">📄 اسم الملف: أحلى ملف PDF.</p>
+          <p>✨ سبب الأهمية: لأنه جمع تفاصيل حلوة وضحك وذكريات.</p>
+          <p class="text-[#FF8EBD] font-bold">⚖️ الحكم النهائي: الملف ده ممنوع يتنسي 😂❤️</p>
+        </div>
+      </section>
+
+      <!-- Birthday Cake -->
+      <section id="cake-sec" class="p-8 rounded-2xl bg-[#17102B] border border-[#FF8EBD]/35 space-y-4 text-center">
+        <div class="flex justify-between items-center">
+          <h2 class="text-3xl font-extrabold">تورتة عيد ميلاد أوشا 🎂</h2>
+          <button onclick="findHeart('h4', this)" class="px-3 py-1 text-xs rounded-lg bg-[#090B1C] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #4 ❤️</button>
+        </div>
+        <p id="cake-status" class="text-2xl font-extrabold text-[#E9C88B]">الشموع منورة ✨ اتمني أمنية!</p>
+        <div class="flex justify-center gap-4">
+          <button onclick="document.getElementById('cake-status').textContent='كل سنة وإنتي طيبة يا آيوش ❤️'" class="px-6 py-3 font-bold text-[#090B1C] bg-[#FF8EBD] rounded-xl cursor-pointer">اطفي الشموع يا أوشا</button>
+          <button onclick="document.getElementById('cake-status').textContent='الشموع رجعت منورة تاني 😂✨'" class="px-6 py-3 font-bold bg-[#090B1C] border border-[#E9C88B]/40 rounded-xl cursor-pointer">رجعي الشموع تاني 😂</button>
+        </div>
+      </section>
+
+      <!-- Finale -->
+      <section id="finale" class="p-10 rounded-3xl bg-gradient-to-b from-[#17102B] to-[#090B1C] border border-[#E9C88B]/50 text-center space-y-5">
+        <button onclick="findHeart('h5', this)" class="px-3 py-1 text-xs rounded-lg bg-[#17102B] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">القلب الخامس والأخير #5 ❤️</button>
+        <h2 class="text-4xl font-extrabold">Happy 11:11 يا أوشا ❤️</h2>
+        <p class="text-2xl font-bold text-[#FF8EBD]">بحبك يا أحلى وأجمل بنوتة في حياتي.</p>
+        <p class="text-xl font-bold text-[#E9C88B]">ويا فثعونتي، يا بنوتة بابي 😂❤️</p>
+        <p class="max-w-2xl mx-auto text-[#F5EAF2]/90">عملتلك الموقع ده عشان أفرحك، وأجمع فيه شوية تفاصيل تخصنا، من أول 3 أكتوبر 2024 لحد ملف الـ PDF الأسطوري 😂</p>
+        <p class="text-xl font-extrabold text-[#E9C88B]">كل 11:11 وإنتي بخير يا آيوش.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const CONFIG = {
+  "girlName": "آيوش",
+  "nickname": "أوشا",
+  "affectionateNicknames": [
+    "يا أوشا",
+    "يا آيوش",
+    "يا أحلى وأجمل بنوتة في حياتي",
+    "يا فثعونتي",
+    "يا بنوتة بابي"
+  ],
+  "dates": {
+    "firstConversationISO": "2024-10-03T00:00:00",
+    "firstConversationDisplay": "03 أكتوبر 2024",
+    "birthdayISO": "2008-01-01T00:00:00",
+    "birthdayDisplay": "01.01.2008",
+    "specialOccasionISO": "2026-11-11T11:11:00",
+    "specialOccasionDisplay": "11 نوفمبر 2026",
+    "specialTime": "11:11"
+  },
+  "insideJoke": "أحلى ملف PDF جمعنا سوا 😍😂",
+  "intro": {
+    "line1": "إيه يا أوشا... مستعدة للمفاجأة؟ 😂❤️",
+    "line2": "المرة دي مش مجرد رسالة وخلاص.",
+    "ctaButton": "يلا افتحي المفاجأة",
+    "skipButton": "تخطي المقدمة"
+  },
+  "hero": {
+    "title": "Happy 11:11 يا أوشا ❤️",
+    "mainMessage": "بحبك يا أحلى وأجمل بنوتة في حياتي.",
+    "subMessage": "وعشان كده عملتلك حاجة صغيرة... بس واخدة وقت وتفكير أكتر مما تتخيلي 😂",
+    "discoverCta": "ابدئي رحلة الاستكشاف"
+  },
+  "storyTimeline": {
+    "title": "فاكرة بدأنا كلام إمتى؟",
+    "subtitle": "محطات حكايتنا من أول يوم ولحد اللحظة دي (تقدري تعدلي أو تضيفي تفاصيلك في أي وقت)",
+    "milestones": [
+      {
+        "id": "m1",
+        "date": "03 أكتوبر 2024",
+        "title": "أول يوم كلام",
+        "description": "اليوم اللي بدأ فيه كل حاجة... كان يوم يبان عادي بس غير تفاصيل كتير أوي بعده.",
+        "category": "البداية",
+        "isEditable": true
+      },
+      {
+        "id": "m2",
+        "date": "ذكرى لا تُنسى",
+        "title": "أول ذكرى",
+        "description": "أول مرة نحس إن الكلام بينا مش مجرد شات عادي، وإن فيه تفاهم وراحة مختلفة. (مساحة جاهزة لكتابة تفصيلتكم الخاصة)",
+        "category": "ذكرى خاصة",
+        "isEditable": true
+      },
+      {
+        "id": "m3",
+        "date": "كوميديا تاريخية",
+        "title": "موقف مضحك",
+        "description": "طبعًا على رأسهم حكاية \"أحلى ملف PDF جمعنا سوا 😍😂\" والضحك اللي مبيخلصش كل ما نفتكره.",
+        "category": "ضحك",
+        "isEditable": true
+      },
+      {
+        "id": "m4",
+        "date": "بين السطور",
+        "title": "تفصيلة مميزة",
+        "description": "طريقة كلامك، عنادك اللطيف في النقاشات، وكل التفاصيل الصغيرة اللي بتميزك يا فثعونتي.",
+        "category": "تفاصيل أوشا",
+        "isEditable": true
+      },
+      {
+        "id": "m5",
+        "date": "المستقبل كله",
+        "title": "حاجات لسه جاية",
+        "description": "أيام حلوة، ضحك أكتر، ومواقف جديدة لسه هنعيشها ونكتبها هنا سوا إن شاء الله.",
+        "category": "اللي جاي",
+        "isEditable": true
+      }
+    ]
+  },
+  "counter": {
+    "title": "إحنا بقالنا قد إيه بنتكلم؟",
+    "cards": [
+      "من هنا بدأت الحكاية.",
+      "كل يوم فيه تفصيلة جديدة.",
+      "والنهارده 11:11."
+    ],
+    "birthdayCard": "01.01.2008 — يوم ميلاد أوشا."
+  },
+  "loveLetters": [
+    {
+      "id": 1,
+      "numberLabel": "01",
+      "title": "البداية اللي فرقت",
+      "content": "أول يوم اتكلمنا فيه كان يوم عادي جدًا... بس بصراحة مبسوط إن الكلام ده بدأ.",
+      "sealColor": "#E9C88B"
+    },
+    {
+      "id": 2,
+      "numberLabel": "02",
+      "title": "تفاصيلك الصغيرة",
+      "content": "بحبك يا أحلى وأجمل بنوتة في حياتي، وبحب تفاصيلك الصغيرة اللي يمكن إنتي مش واخدة بالك منها.",
+      "sealColor": "#FF8EBD"
+    },
+    {
+      "id": 3,
+      "numberLabel": "03",
+      "title": "اللقب الرسمي",
+      "content": "يا فثعونتي، يا بنوتة بابي 😂❤️",
+      "sealColor": "#E9C88B"
+    },
+    {
+      "id": 4,
+      "numberLabel": "04",
+      "title": "حقيقة علمية مؤكدة",
+      "content": "عارفة إنك ساعات بتبقي عايزة تكسبي أي نقاش حتى لو مش معاكي حق؟ 😂",
+      "sealColor": "#FF8EBD"
+    },
+    {
+      "id": 5,
+      "numberLabel": "05",
+      "title": "مشاركة اليوم",
+      "content": "أنا مبسوط إن فيه حد زيك أقدر أشاركه تفاصيل يومي.",
+      "sealColor": "#E9C88B"
+    },
+    {
+      "id": 6,
+      "numberLabel": "06",
+      "title": "من غير مناسبة",
+      "content": "مش لازم يكون فيه مناسبة عشان أقولك إني بحبك.",
+      "sealColor": "#FF8EBD"
+    },
+    {
+      "id": 7,
+      "numberLabel": "07",
+      "title": "متحف الـ PDF",
+      "content": "لسه فاكرين ملف الـ PDF؟ 😂 ده محتاج يتعمله متحف لوحده.",
+      "sealColor": "#E9C88B"
+    },
+    {
+      "id": 8,
+      "numberLabel": "08",
+      "title": "الذاكرة الحقيقية",
+      "content": "أحلى حاجة إن التفاصيل الصغيرة بتفضل فاكرة نفسها.",
+      "sealColor": "#FF8EBD"
+    },
+    {
+      "id": 9,
+      "numberLabel": "09",
+      "title": "الأيام الجاية",
+      "content": "أتمنى الأيام الجاية تكون مليانة حاجات حلوة وضحك وذكريات جديدة.",
+      "sealColor": "#E9C88B"
+    },
+    {
+      "id": 10,
+      "numberLabel": "10",
+      "title": "أمنية 11:11",
+      "content": "كل 11:11 وإنتي طيبة يا أوشا.",
+      "sealColor": "#FF8EBD"
+    },
+    {
+      "id": 11,
+      "numberLabel": "11",
+      "title": "مخصوص عشانك",
+      "content": "بحبك يا آيوش، ودي مش رسالة محفوظة... دي رسالة مخصوص ليكي.",
+      "sealColor": "#E9C88B"
+    }
+  ],
+  "mysteryBoxes": [
+    {
+      "id": 1,
+      "name": "The Love Box",
+      "arabicTitle": "صندوق الحب الأول",
+      "subtitle": "لمسة دافية من القلب",
+      "revealText": "بحبك يا أحلى وأجمل بنوتة في حياتي ❤️",
+      "boxColor": "#FF8EBD",
+      "ribbonColor": "#E9C88B",
+      "effectType": "hearts"
+    },
+    {
+      "id": 2,
+      "name": "The Funny Box",
+      "arabicTitle": "صندوق الدلع والضحك",
+      "subtitle": "بصمة أوشا المميزة",
+      "revealText": "يا فثعونتي يا بنوتة بابي 😂",
+      "boxColor": "#E9C88B",
+      "ribbonColor": "#17102B",
+      "effectType": "laugh"
+    },
+    {
+      "id": 3,
+      "name": "The Memory Box",
+      "arabicTitle": "صندوق الذكرى الخالدة",
+      "subtitle": "السر اللي بدأ الحكاية",
+      "revealText": "تفتكري أحلى ملف PDF جمعنا سوا؟ 😍😂",
+      "boxColor": "#7E57C2",
+      "ribbonColor": "#E9C88B",
+      "effectType": "pdf"
+    },
+    {
+      "id": 4,
+      "name": "The Secret Box",
+      "arabicTitle": "الصندوق السري المتغير",
+      "subtitle": "كل ضغطة برسالة مختلفة ليكي",
+      "revealText": "وجودك يا آيوش بيخلي أي يوم عادي يتحول ليوم ليه طعم مختلف ❤️",
+      "boxColor": "#26A69A",
+      "ribbonColor": "#FF8EBD",
+      "effectType": "random"
+    },
+    {
+      "id": 5,
+      "name": "The Final Box",
+      "arabicTitle": "الصندوق الخامس",
+      "subtitle": "محطة قبل الأسرار الكبيرة",
+      "revealText": "المفاجأة لسه مخلصتش... كملي يا أوشا 😂",
+      "boxColor": "#EC407A",
+      "ribbonColor": "#F5EAF2",
+      "effectType": "finale"
+    }
+  ],
+  "secretBoxRandomPool": [
+    "وجودك يا آيوش بيخلي أي يوم عادي يتحول ليوم ليه طعم مختلف ❤️",
+    "ضحكتك لوحدها كفاية تفصلني عن أي تعب أو زعل يا أوشا.",
+    "يا فثعونتي، إنتي أحلى صدفة حصلت من يوم 3 أكتوبر 2024 😂❤️",
+    "حتى لما بتعاندي في الكلام، برضو بتطلعي أحلى بنوتة في نظري 😂",
+    "كل تفصيلة صغيرة بينا ليها مكان محفوظ ومبيتغيرش يا بنوتة بابي."
+  ],
+  "pdfEasterEgg": {
+    "sectionTitle": "ملف القضية رقم 11:11",
+    "subtitle": "أحلى ملف PDF جمعنا سوا 😍😂",
+    "buttonLabel": "افتحي الملف الأسطوري",
+    "foundHeader": "تم العثور على ملف تاريخي نادر...",
+    "fileNameLabel": "اسم الملف: أحلى ملف PDF.",
+    "reasonLabel": "سبب الأهمية: لأنه جمع تفاصيل حلوة وضحك وذكريات.",
+    "verdictLabel": "الحكم النهائي: الملف ده ممنوع يتنسي 😂❤️",
+    "stampText": "TOP SECRET // 11:11 CLASSIFIED",
+    "customPdfUrl": ""
+  },
+  "birthdayCake": {
+    "blowButton": "اطفي الشموع يا أوشا",
+    "relightButton": "رجعي الشموع تاني 😂",
+    "celebrationMessage": "كل سنة وإنتي طيبة يا آيوش ❤️",
+    "subNote": "ميلاد أوشا المميز: 01 يناير 2008 — شمعة منورة دايمًا في حياتي."
+  },
+  "wishingStars": {
+    "title": "اختاري 3 نجوم يا أوشا ✨",
+    "subtitle": "اضغطي على النجوم المضيئة في السما التفاعلية واكتشفي كل نجمة مخبية إيه",
+    "starMessages": [
+      {
+        "id": 1,
+        "name": "نجمة البداية",
+        "message": "أول نجمة بتفكرك إن 3 أكتوبر 2024 كان أحلى بداية."
+      },
+      {
+        "id": 2,
+        "name": "نجمة الضحكة",
+        "message": "تاني نجمة بتقولك خلي ضحكتك دايمًا منورة يا فثعونتي 😂❤️"
+      },
+      {
+        "id": 3,
+        "name": "نجمة الـ PDF",
+        "message": "تالت نجمة شاهدة على أحلى ملف PDF جمعنا سوا 😍😂"
+      },
+      {
+        "id": 4,
+        "name": "نجمة بنوتة بابي",
+        "message": "نجمة مخصوص لأحلى وأجمل بنوتة في حياتي."
+      },
+      {
+        "id": 5,
+        "name": "نجمة تفاصيلك",
+        "message": "كل تفصيلة صغيرة في كلامك ليها لمعة زي النجمة دي بالظبط."
+      },
+      {
+        "id": 6,
+        "name": "نجمة راحة البال",
+        "message": "بتمنالك أيام كلها راحة وفرحة ومفيهاش أي زعل يا آيوش."
+      },
+      {
+        "id": 7,
+        "name": "نجمة 11:11",
+        "message": "الساعة 11:11 دايمًا ليها معنى مختلف عشان بتفكرني بيكي."
+      }
+    ],
+    "finalThreeStarsReward": "جمعتي الـ 3 نجوم يا أوشا! ✨ الأمنية الحقيقية إننا نفضل دايمًا فاكرين ضحكنا وتفاصيلنا الحلوة سوا ❤️"
+  },
+  "hiddenHearts": {
+    "counterLabel": "لقيتي كام قلب؟",
+    "completedTitle": "شطورة يا أوشا 😂❤️",
+    "extraLoveNote": "لقيتي الـ 5 قلوب المستخبية في الكون ده كله! زي ما بتاخدي بالك من التفاصيل الصغيرة، حبيت أخبي لك تفصيلة في كل ركن عشان تفرحي لما تلاقيها يا بنوتة بابي ❤️",
+    "locations": [
+      {
+        "id": "heart-hero",
+        "hint": "في أول الصفحة جنب عنوان 11:11"
+      },
+      {
+        "id": "heart-story",
+        "hint": "مستخبي بين تواريخ حكايتنا والعداد"
+      },
+      {
+        "id": "heart-pdf",
+        "hint": "جوه غرفة ملف الـ PDF السري"
+      },
+      {
+        "id": "heart-cake",
+        "hint": "قريب من تورتة عيد ميلاد أوشا"
+      },
+      {
+        "id": "heart-finale",
+        "hint": "في المشهد الختامي الأخير"
+      }
+    ]
+  },
+  "quiz": {
+    "title": "اختبار أوشا السريع 😂❤️",
+    "subtitle": "5 أسئلة خفيفة ومش محتاجة غش (لأن النتيجة معروفة من الأول)",
+    "questions": [
+      {
+        "id": 1,
+        "question": "مين صاحبة أحلى PDF في التاريخ؟",
+        "options": [
+          "أوشا طبعًا.",
+          "أوشا برضو.",
+          "السؤال ده محتاج تفكير؟ 😂"
+        ],
+        "correctNote": "كل الإجابات صح 😂❤️"
+      },
+      {
+        "id": 2,
+        "question": "لما أوشا بتدخل أي نقاش، إيه القاعدة الأساسية؟",
+        "options": [
+          "أوشا صح حتى لو غلط 😂",
+          "الطرف التاني يقتنع بهدوء",
+          "راجع الإجابة الأولى والتانية مع بعض"
+        ],
+        "correctNote": "بالظبط كدة! النقاش محسوم لصالح فثعونتي من قبل ما يبدأ 😂"
+      },
+      {
+        "id": 3,
+        "question": "إيه اليوم اللي بدأ فيه أحلى كلام بينا؟",
+        "options": [
+          "03 أكتوبر 2024 ❤️",
+          "أحلى يوم في أكتوبر",
+          "اليوم اللي فتح القصة كلها"
+        ],
+        "correctNote": "صح طبعًا! 03 أكتوبر 2024 تاريخ محفور وميتنسيش."
+      },
+      {
+        "id": 4,
+        "question": "مين هي \"فثعونتي\" و\"بنوتة بابي\"؟",
+        "options": [
+          "آيوش ❤️",
+          "أوشا القمر",
+          "أحلى وأجمل بنوتة في حياتي"
+        ],
+        "correctNote": "كل الألقاب دي متفصلة عليكي لوحدك يا أوشا 😂❤️"
+      },
+      {
+        "id": 5,
+        "question": "لما الساعة تيجي 11:11، إيه أول حاجة بتيجي في البال؟",
+        "options": [
+          "Happy 11:11 يا أوشا ❤️",
+          "رسالة حلوة لآيوش",
+          "تفصيلة تفرح قلبها"
+        ],
+        "correctNote": "100% صح! كل 11:11 وإنتي منورة دنيتي يا آيوش."
+      }
+    ],
+    "completionTitle": "النتيجة النهائية: 5 من 5 بتفوق أسطوري! 🎉",
+    "completionMessage": "كل الإجابات صح 😂❤️ لأن الاختبار ده أصلًا متفصل عشان يفكرك قد إيه إنتي مميزة وغالية عندي يا أوشا."
+  },
+  "futureLetter": {
+    "title": "رسالة صغيرة من المستقبل...",
+    "sealLabel": "مختوم لـ أوشا — 11:11",
+    "message": "يا أوشا، أتمنى لما نفتكر الأيام دي نكون لسه فاكرين كل التفاصيل الصغيرة اللي كانت بتضحكنا.",
+    "footerSign": "مكتوبة بكل حب عشان تفضل ذكرى حلوة بينا دايمًا ❤️"
+  },
+  "mysteryGift": {
+    "beforeOpenText": "في هدية صغيرة مستخبية ليكي...",
+    "afterOpenText": "الهدية الحقيقية إنك تلاقي حد فكر يعمل كل التفاصيل دي عشان يفرحك.",
+    "secondaryNote": "كل سطر كود وكل حركة في الموقع ده اتعملت عشان ترسم ضحكة حقيقية على وشك يا آيوش ❤️"
+  },
+  "scratchCard": {
+    "title": "كارت الخدش السري ✨",
+    "instruction": "امسحي الطبقة الذهبية بصباعك أو بالماوس عشان تظهري الرسالة المستخبية تحته!",
+    "hiddenMessage": "مفاجأة إضافية لـ فثعونتي: ضحكتك عندي بالدنيا كلها يا أحلى بنوتة بابي 😂❤️"
+  },
+  "randomLoveMessages": [
+    "بحبك يا أحلى وأجمل بنوتة في حياتي ❤️",
+    "يا فثعونتي، إنتي بهجة أي يوم عادي 😂❤️",
+    "لسه فاكر أول يوم كلام يوم 3 أكتوبر 2024 كأنه امبارح.",
+    "يا بنوتة بابي، خليكي دايمًا بتضحكي كدة.",
+    "أحلى ملف PDF جمعنا سوا هيفضل أشهر قصة في التاريخ 😍😂",
+    "كل 11:11 وإنتي أول حد يجي في بالي يا أوشا.",
+    "تفاصيلك الصغيرة هي اللي بتخلي الكلام معاكي ميتشبعش منه.",
+    "حتى لما بتعاندي في النقاش، برضو بكون مبسوط وأنا بكلمك 😂",
+    "ميلادك 01.01.2008 هو بداية كل حاجة حلوة يا آيوش.",
+    "مش محتاج مناسبة كبيرة عشان أفكرك قد إيه إنتي غالية عندي.",
+    "يا آيوش، أتمنى الموقع ده يكون خلاكي تبتسمي من قلبك النهارده ❤️"
+  ],
+  "polaroidWall": {
+    "title": "حائط الذكريات واللحظات (Polaroid Wall)",
+    "subtitle": "إطارات مخصصة لتفاصيلنا — تقدري تضيفي صورك أو تعدلي التعليقات وتحتفظي بيها",
+    "frames": [
+      {
+        "id": "p1",
+        "caption": "بداية الحكاية كلها",
+        "dateLabel": "03.10.2024",
+        "note": "أول محادثة فتحت باب لكل الضحك والذكريات الحلوة."
+      },
+      {
+        "id": "p2",
+        "caption": "الوثيقة التاريخية الأهم",
+        "dateLabel": "PDF Archive",
+        "note": "أحلى ملف PDF جمعنا سوا 😍😂 — ذكرى ليها مكانها الخاص."
+      },
+      {
+        "id": "p3",
+        "caption": "يوم ميلاد أوشا",
+        "dateLabel": "01.01.2008",
+        "note": "اليوم اللي جت فيه أحلى وأجمل بنوتة في حياتي."
+      },
+      {
+        "id": "p4",
+        "caption": "لحظة 11:11 المميزة",
+        "dateLabel": "11.11.2026",
+        "note": "ذكرى تصميم العالم التفاعلي ده مخصوص عشان فثعونتي."
+      }
+    ]
+  },
+  "developerTerminal": {
+    "triggerLabel": "بروتوكول المطور السري 11:11",
+    "lines": [
+      "> Initializing Osha's Surprise...",
+      "> Loading special memories since 2024-10-03...",
+      "> Verifying Birthday Record: 2008-01-01 [OSHA_VERIFIED]...",
+      "> Searching for the legendary PDF (\"أحلى ملف PDF جمعنا سوا\")...",
+      "> 11:11 Protocol Activated.",
+      "> Access Granted ❤️"
+    ]
+  },
+  "finalSecretMessage": "🔓 السر الأخير اتفتح! بما إنك استكشفتي الموقع وجربتي تفاصيله... حابب أقولك إن وجودك في حياتي يا آيوش هو أحلى تفصيلة حصلت بجد، وكل تعب في الكود ده يهون عشان ضحكة واحدة منك يا أوشا ❤️",
+  "grandFinale": {
+    "headline": "Happy 11:11 يا أوشا ❤️",
+    "line1": "بحبك يا أحلى وأجمل بنوتة في حياتي.",
+    "line2": "ويا فثعونتي، يا بنوتة بابي 😂❤️",
+    "summaryParagraph": "عملتلك الموقع ده عشان أفرحك، وأجمع فيه شوية تفاصيل تخصنا، من أول 3 أكتوبر 2024 لحد ملف الـ PDF الأسطوري 😂",
+    "closingWish": "كل 11:11 وإنتي بخير يا آيوش.",
+    "replayLabel": "إعادة الاحتفال والألعاب النارية",
+    "returnTopLabel": "العودة لبداية الرحلة"
+  }
+};
+    let foundHearts = new Set();
+    let msgIdx = 0;
+
+    document.getElementById('intro-line1').textContent = CONFIG.intro.line1;
+    document.getElementById('intro-line2').textContent = CONFIG.intro.line2;
+    document.getElementById('random-msg-box').textContent = CONFIG.randomLoveMessages[0];
+
+    function enterSite() {
+      document.getElementById('intro-overlay').style.display = 'none';
+    }
+
+    function nextRandomLove() {
+      msgIdx = (msgIdx + 1) % CONFIG.randomLoveMessages.length;
+      document.getElementById('random-msg-box').textContent = CONFIG.randomLoveMessages[msgIdx];
+    }
+
+    function findHeart(id, btn) {
+      foundHearts.add(id);
+      btn.textContent = 'تم اكتشاف القلب ❤️';
+      document.getElementById('hearts-badge').textContent =
+        foundHearts.size >= 5 ? 'شطورة يا أوشا 😂❤️ (5/5)' : 'القلوب: ' + foundHearts.size + ' / 5 ❤️';
+    }
+
+    // Live Counter
+    function updateCounter() {
+      const start = new Date(CONFIG.dates.firstConversationISO).getTime();
+      const diff = Math.max(0, Date.now() - start);
+      const sec = Math.floor(diff / 1000);
+      const days = Math.floor(sec / 86400);
+      const months = Math.floor(days / 30.4375);
+      const years = Math.floor(days / 365.25);
+      document.getElementById('live-counter').innerHTML = [
+        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#E9C88B]">' + days + '</div><div class="text-xs">يوم</div></div>',
+        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#FF8EBD]">' + months + '</div><div class="text-xs">شهر</div></div>',
+        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#E9C88B]">' + years + '</div><div class="text-xs">سنة</div></div>',
+        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#F5EAF2]">' + sec.toLocaleString() + '</div><div class="text-xs">ثانية</div></div>'
+      ].join('');
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // Render Timeline
+    const tlGrid = document.getElementById('timeline-grid');
+    CONFIG.storyTimeline.milestones.forEach(m => {
+      const d = document.createElement('div');
+      d.className = 'p-5 rounded-xl bg-[#17102B] border border-[#F5EAF2]/15 space-y-2';
+      d.innerHTML = '<div class="text-xs text-[#E9C88B]">' + m.date + '</div><h3 class="font-bold text-lg">' + m.title + '</h3><p class="text-sm text-[#F5EAF2]/80">' + m.description + '</p>';
+      tlGrid.appendChild(d);
+    });
+
+    // Render 11 Letters
+    const lGrid = document.getElementById('letters-grid');
+    const lViewer = document.getElementById('letter-viewer');
+    lViewer.textContent = CONFIG.loveLetters[0].content;
+    CONFIG.loveLetters.forEach(l => {
+      const b = document.createElement('button');
+      b.className = 'p-3 rounded-xl bg-[#17102B] border border-[#E9C88B]/30 text-right cursor-pointer hover:border-[#FF8EBD]';
+      b.innerHTML = '<div class="text-xs text-[#E9C88B]">LETTER ' + l.numberLabel + '</div><div class="font-bold text-sm">' + l.title + '</div>';
+      b.onclick = () => { lViewer.textContent = '"' + l.content + '"'; };
+      lGrid.appendChild(b);
+    });
+
+    // Render 5 Mystery Boxes
+    const bGrid = document.getElementById('boxes-grid');
+    const bViewer = document.getElementById('box-viewer');
+    bViewer.textContent = CONFIG.mysteryBoxes[0].revealText;
+    CONFIG.mysteryBoxes.forEach(bx => {
+      const b = document.createElement('button');
+      b.className = 'p-4 rounded-xl bg-[#17102B] border border-[#FF8EBD]/30 cursor-pointer hover:border-[#E9C88B]';
+      b.innerHTML = '<div class="text-xs text-[#E9C88B]">' + bx.name + '</div><div class="font-bold">' + bx.arabicTitle + '</div>';
+      b.onclick = () => { bViewer.textContent = '"' + bx.revealText + '"'; };
+      bGrid.appendChild(b);
+    });
+
+    // Three.js WebGL Background
+    (function initThree() {
+      const container = document.getElementById('webgl-universe');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.z = 12;
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      container.appendChild(renderer.domElement);
+
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(3.2, 0.04, 16, 64),
+        new THREE.MeshBasicMaterial({ color: 0xE9C88B })
+      );
+      scene.add(ring);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        ring.rotation.z += 0.004;
+        ring.rotation.y += 0.003;
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
+  </script>
+</body>
+</html>
