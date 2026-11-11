@@ -3,691 +3,1047 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>11:11 — عالم أوشا السري ❤️</title>
-  <meta name="description" content="عالم تفاعلي ثلاثي الأبعاد ومفاجأة 11:11 خاصة لأوشا (آيوش)" />
+  <title>Site for my beloved cute Ayooshyyy ❤️</title>
+  <meta name="description" content="A special secret universe for my beloved cute Ayooshyyy (أوشا) — 11:11." />
+  <meta property="og:title" content="Site for my beloved cute Ayooshyyy ❤️" />
+  <meta property="og:description" content="A special secret universe for my beloved cute Ayooshyyy (أوشا) — 11:11." />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://esm.sh/three@0.174.0",
+        "three/addons/environments/RoomEnvironment.js": "https://esm.sh/three@0.174.0/examples/jsm/environments/RoomEnvironment.js"
+      }
+    }
+  </script>
   <style>
-    body {
-      font-family: 'Cairo', 'Tajawal', sans-serif;
-      background-color: #090B1C;
-      color: #F5EAF2;
-      overflow-x: hidden;
-      margin: 0;
-    }
-    .font-mono-tabular {
-      font-family: 'JetBrains Mono', monospace;
-      font-variant-numeric: tabular-nums;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-family: 'Cairo', 'Tajawal', sans-serif; background: #090B1C; color: #F5EAF2; }
+    body { background: #090B1C; color: #F5EAF2; overflow-x: hidden; margin: 0; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+    .glass-card { background: rgba(23, 16, 43, 0.78); backdrop-filter: blur(14px); border: 1px solid rgba(233, 200, 139, 0.25); }
+    .glow-text { text-shadow: 0 0 28px rgba(255, 142, 189, 0.45), 0 0 55px rgba(233, 200, 139, 0.25); }
+    canvas { display: block; touch-action: manipulation; }
   </style>
 </head>
-<body class="bg-[#090B1C] text-[#F5EAF2] selection:bg-[#FF8EBD]/30 selection:text-[#FF8EBD]">
-  <!-- Fixed 3D WebGL Universe Canvas -->
-  <div id="webgl-universe" class="fixed inset-0 pointer-events-none z-0"></div>
+<body class="bg-[#090B1C] text-[#F5EAF2] antialiased selection:bg-[#FF8EBD]/30 selection:text-[#FF8EBD]">
 
-  <!-- Intro Portal Overlay -->
-  <div id="intro-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-between p-6 bg-[#090B1C]/95 text-center">
-    <div class="w-full max-w-5xl flex justify-between items-center">
-      <span class="font-mono-tabular text-xs text-[#E9C88B]">11:11 // OSHA UNIVERSE</span>
-      <button onclick="enterSite()" class="px-4 py-2 text-xs font-bold border border-[#E9C88B]/40 rounded-lg text-[#E9C88B] cursor-pointer">تخطي المقدمة</button>
-    </div>
-    <div class="max-w-2xl space-y-6 my-auto">
-      <div class="text-7xl sm:text-9xl font-extrabold font-mono-tabular text-[#E9C88B]">11:11</div>
-      <h1 id="intro-line1" class="text-2xl sm:text-4xl font-bold"></h1>
-      <p id="intro-line2" class="text-lg text-[#F5EAF2]/80"></p>
-      <button onclick="enterSite()" class="px-8 py-4 text-lg font-extrabold text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] rounded-xl shadow-lg cursor-pointer">
-        يلا افتحي المفاجأة ✨
+  <!-- 3D Persistent Universe Background -->
+  <div id="bg-3d-canvas" class="fixed inset-0 z-0 pointer-events-none"></div>
+
+  <!-- Intro 11:11 Portal -->
+  <div id="intro-portal" class="fixed inset-0 z-50 flex flex-col items-center justify-center px-4 text-center bg-[#090B1C]/95 backdrop-blur-md transition-opacity duration-700">
+    <button id="skip-intro-btn" class="fixed top-5 left-5 px-4 py-2 text-xs font-bold text-[#F5EAF2]/75 hover:text-[#E9C88B] bg-[#17102B]/90 border border-[#E9C88B]/30 rounded-xl cursor-pointer">
+      تخطي المقدمة ✦
+    </button>
+    <div class="max-w-xl w-full glass-card rounded-3xl p-8 sm:p-12 border border-[#E9C88B]/35 shadow-2xl space-y-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-[#090B1C]/90 border border-[#E9C88B]/35 text-[#E9C88B] text-xs font-mono-num">
+        ✨ OSHA'S SECRET UNIVERSE · 11:11
+      </div>
+      <div class="font-mono-num text-6xl sm:text-8xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#F5EAF2] via-[#E9C88B] to-[#FF8EBD] glow-text">
+        11:11
+      </div>
+      <div class="space-y-3 min-h-[5.5rem] flex flex-col justify-center">
+        <p id="intro-line-1" class="text-xl sm:text-2xl font-bold text-[#F5EAF2] transition-all duration-500">
+          إيه يا أوشا... مستعدة للمفاجأة؟ 😂❤️
+        </p>
+        <p id="intro-line-2" class="text-base sm:text-lg text-[#E9C88B] font-medium transition-all duration-500">
+          المرة دي مش مجرد رسالة وخلاص.
+        </p>
+      </div>
+      <button id="enter-universe-btn" class="inline-flex items-center justify-center gap-3 px-8 py-4 text-base sm:text-lg font-extrabold text-[#090B1C] bg-gradient-to-r from-[#E9C88B] via-[#FF8EBD] to-[#E9C88B] rounded-2xl shadow-[0_0_35px_rgba(255,142,189,0.45)] hover:scale-[1.03] active:scale-[0.99] transition-all cursor-pointer">
+        <span>يلا افتحي المفاجأة ❤️</span>
       </button>
     </div>
-    <div class="text-xs font-mono-tabular text-[#F5EAF2]/60">03.10.2024 · 01.01.2008 · 11.11.2026</div>
   </div>
+
+  <!-- Sticky Navigation -->
+  <header class="sticky top-0 z-40 bg-[#090B1C]/85 backdrop-blur-md border-b border-[#E9C88B]/20">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
+      <a href="#hero" class="flex items-center gap-2 text-base sm:text-lg font-extrabold text-[#E9C88B]">
+        <span>❤️</span>
+        <span>11:11 · عالم أوشا</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-4 text-xs font-bold text-[#F5EAF2]/80">
+        <a href="#our-story" class="hover:text-[#FF8EBD]">حكايتنا</a>
+        <a href="#love-letters" class="hover:text-[#FF8EBD]">الرسائل الـ 11</a>
+        <a href="#mystery-boxes" class="hover:text-[#FF8EBD]">الصناديق الـ 5</a>
+        <a href="#pdf-story" class="hover:text-[#FF8EBD]">ملف الـ PDF</a>
+        <a href="#birthday-cake" class="hover:text-[#FF8EBD]">تورتة أوشا 3D</a>
+        <a href="#secret-games" class="hover:text-[#FF8EBD]">ألعاب وأسرار</a>
+        <a href="#finale" class="hover:text-[#FF8EBD]">الختام</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <span id="nav-hearts-badge" class="px-3 py-1.5 rounded-xl bg-[#17102B] border border-[#FF8EBD]/40 text-xs font-bold text-[#FF8EBD]">
+          ❤️ القلوب: 0 / 5
+        </span>
+      </div>
+    </div>
+  </header>
 
   <!-- Main Content -->
-  <div class="relative z-10">
-    <header class="sticky top-0 z-40 bg-[#090B1C]/90 border-b border-[#E9C88B]/20 px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
-      <a href="#hero" class="text-lg font-extrabold text-[#E9C88B]">11:11 · عالم أوشا ❤️</a>
-      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
-        <a href="#story" class="hover:text-[#FF8EBD]">حكايتنا</a>
-        <a href="#letters" class="hover:text-[#FF8EBD]">الرسائل الـ 11</a>
-        <a href="#boxes" class="hover:text-[#FF8EBD]">الصناديق السرية</a>
-        <a href="#pdf-sec" class="hover:text-[#FF8EBD]">ملف الـ PDF</a>
-        <a href="#cake-sec" class="hover:text-[#FF8EBD]">تورتة أوشا</a>
-      </nav>
-      <span id="hearts-badge" class="text-xs font-bold text-[#FF8EBD]">القلوب: 0 / 5 ❤️</span>
-    </header>
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 space-y-24 py-10">
 
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 space-y-24 py-12">
-      <!-- Hero -->
-      <section id="hero" class="text-center space-y-6 py-12">
-        <button onclick="findHeart('h1', this)" class="px-3 py-1 text-xs rounded-lg bg-[#17102B] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #1 ❤️</button>
-        <div class="text-6xl font-mono-tabular font-extrabold text-[#E9C88B]">11:11</div>
-        <h1 class="text-4xl sm:text-6xl font-extrabold">Happy 11:11 يا أوشا ❤️</h1>
-        <p class="text-2xl font-bold text-[#FF8EBD]">بحبك يا أحلى وأجمل بنوتة في حياتي.</p>
-        <p class="text-base sm:text-lg text-[#F5EAF2]/85 max-w-2xl mx-auto">وعشان كده عملتلك حاجة صغيرة... بس واخدة وقت وتفكير أكتر مما تتخيلي 😂</p>
-        <div class="pt-4">
-          <button onclick="nextRandomLove()" class="px-6 py-3 rounded-xl bg-[#17102B] border border-[#E9C88B]/40 font-bold text-sm cursor-pointer">رسالة عشوائية لـ أوشا ✨</button>
-          <p id="random-msg-box" class="mt-4 text-lg font-bold text-[#E9C88B]"></p>
+    <!-- 01. HERO SECTION -->
+    <section id="hero" class="min-h-[82vh] flex flex-col items-center justify-center text-center space-y-7 pt-4">
+      <button data-heart="1" class="heart-hunt-btn inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#17102B]/90 border border-[#FF8EBD]/35 text-xs text-[#FF8EBD] hover:bg-[#FF8EBD]/20 transition-all cursor-pointer">
+        <span>❤️</span>
+        <span class="heart-label">قلب مستخبي #1 — اضغطي هنا</span>
+      </button>
+
+      <div class="font-mono-num text-6xl sm:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#E9C88B] via-[#FF8EBD] to-[#E9C88B] glow-text">
+        11:11
+      </div>
+
+      <h1 class="text-3xl sm:text-6xl font-extrabold text-[#F5EAF2] leading-tight">
+        Happy 11:11 يا أوشا ❤️
+      </h1>
+
+      <p class="text-xl sm:text-2xl font-bold text-[#FF8EBD]">
+        بحبك يا أحلى وأجمل بنوتة في حياتي.
+      </p>
+
+      <p class="max-w-xl text-sm sm:text-base text-[#F5EAF2]/85 leading-relaxed">
+        وعشان كده عملتلك حاجة صغيرة... بس واخدة وقت وتفكير أكتر مما تتخيلي 😂
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-mono-num text-[#E9C88B] bg-[#17102B]/80 border border-[#E9C88B]/30 px-4 py-2.5 rounded-xl">
+        <span>أول محادثة: 03.10.2024</span>
+        <span>·</span>
+        <span>ميلاد أوشا: 01.01.2008</span>
+        <span>·</span>
+        <span>اللحظة المميزة: 11:11</span>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a href="#our-story" class="px-7 py-3.5 rounded-xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] hover:brightness-110 transition-all">
+          ابدئي رحلة الاستكشاف ✨
+        </a>
+        <button id="random-msg-btn" class="px-6 py-3.5 rounded-xl font-bold text-sm text-[#F5EAF2] bg-[#17102B] border border-[#E9C88B]/40 hover:border-[#FF8EBD] transition-all cursor-pointer">
+          رسالة عشوائية لـ أوشا (11 رسالة) 💌
+        </button>
+      </div>
+
+      <div class="max-w-lg w-full glass-card rounded-2xl p-5 space-y-1.5">
+        <p class="text-xs text-[#E9C88B] font-bold">رسالة اللحظة لـ آيوش:</p>
+        <p id="random-msg-display" class="text-base sm:text-lg font-bold text-[#F5EAF2]">
+          "بحبك يا أحلى وأجمل بنوتة في حياتي ❤️"
+        </p>
+      </div>
+    </section>
+
+    <!-- 02. STORY & LIVE COUNTER -->
+    <section id="our-story" class="space-y-8 scroll-mt-20">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-mono-num text-[#E9C88B]">01 · عداد الحكاية المباشر منذ 03 أكتوبر 2024</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#F5EAF2] mt-1">إحنا بقالنا قد إيه بنتكلم؟</h2>
         </div>
-      </section>
+        <button data-heart="2" class="heart-hunt-btn inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#17102B] border border-[#FF8EBD]/35 text-xs text-[#FF8EBD] cursor-pointer">
+          <span>❤️</span>
+          <span class="heart-label">قلب مستخبي #2</span>
+        </button>
+      </div>
 
-      <!-- Counter & Story -->
-      <section id="story" class="space-y-8">
-        <div class="flex justify-between items-center border-b border-[#E9C88B]/20 pb-4">
-          <h2 class="text-3xl font-extrabold">إحنا بقالنا قد إيه بنتكلم؟ (من 03 أكتوبر 2024)</h2>
-          <button onclick="findHeart('h2', this)" class="px-3 py-1 text-xs rounded-lg bg-[#17102B] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #2 ❤️</button>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card rounded-2xl p-5 text-center space-y-1">
+          <p class="text-xs text-[#F5EAF2]/70">إجمالي الأيام من 3 أكتوبر 2024</p>
+          <div id="cnt-days" class="text-3xl sm:text-4xl font-extrabold font-mono-num text-[#E9C88B]">769</div>
+          <p class="text-[11px] text-[#FF8EBD]">يوم من الكلام والضحك</p>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center" id="live-counter"></div>
-        <div class="p-4 rounded-xl bg-[#17102B] border border-[#FF8EBD]/40 text-center font-bold">01.01.2008 — يوم ميلاد أوشا ❤️</div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="timeline-grid"></div>
-      </section>
-
-      <!-- 11 Love Letters -->
-      <section id="letters" class="space-y-6">
-        <h2 class="text-3xl font-extrabold border-b border-[#E9C88B]/20 pb-4">الـ 11 رسالة حب لـ أوشا 💌</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="letters-grid"></div>
-        <div id="letter-viewer" class="p-6 rounded-2xl bg-[#17102B] border border-[#E9C88B]/45 text-lg font-bold"></div>
-      </section>
-
-      <!-- 5 Mystery Boxes -->
-      <section id="boxes" class="space-y-6">
-        <h2 class="text-3xl font-extrabold border-b border-[#E9C88B]/20 pb-4">الصناديق السرية الخمسة 🎁</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3" id="boxes-grid"></div>
-        <div id="box-viewer" class="p-6 rounded-2xl bg-[#17102B] border border-[#FF8EBD]/45 text-xl font-extrabold text-center"></div>
-      </section>
-
-      <!-- PDF Easter Egg -->
-      <section id="pdf-sec" class="p-8 rounded-2xl bg-[#17102B] border border-[#E9C88B]/40 space-y-4">
-        <div class="flex justify-between items-center">
-          <h2 class="text-3xl font-extrabold text-[#E9C88B]">ملف القضية رقم 11:11 📁</h2>
-          <button onclick="findHeart('h3', this)" class="px-3 py-1 text-xs rounded-lg bg-[#090B1C] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #3 ❤️</button>
+        <div class="glass-card rounded-2xl p-5 text-center space-y-1">
+          <p class="text-xs text-[#F5EAF2]/70">إجمالي الشهور</p>
+          <div id="cnt-months" class="text-3xl sm:text-4xl font-extrabold font-mono-num text-[#FF8EBD]">25</div>
+          <p id="cnt-breakdown" class="text-[11px] text-[#F5EAF2]/75">تفاصيل مبتخلصش</p>
         </div>
-        <p class="text-lg font-bold text-[#FF8EBD]">أحلى ملف PDF جمعنا سوا 😍😂</p>
-        <button onclick="document.getElementById('pdf-details').classList.toggle('hidden')" class="px-6 py-3 font-extrabold text-[#090B1C] bg-[#E9C88B] rounded-xl cursor-pointer">افتحي الملف الأسطوري</button>
-        <div id="pdf-details" class="hidden p-5 rounded-xl bg-[#090B1C] border border-[#FF8EBD]/30 space-y-2">
-          <p class="text-[#E9C88B] font-bold">تم العثور على ملف تاريخي نادر...</p>
-          <p class="font-bold">📄 اسم الملف: أحلى ملف PDF.</p>
-          <p>✨ سبب الأهمية: لأنه جمع تفاصيل حلوة وضحك وذكريات.</p>
-          <p class="text-[#FF8EBD] font-bold">⚖️ الحكم النهائي: الملف ده ممنوع يتنسي 😂❤️</p>
+        <div class="glass-card rounded-2xl p-5 text-center space-y-1">
+          <p class="text-xs text-[#F5EAF2]/70">السنين المكتملة</p>
+          <div id="cnt-years" class="text-3xl sm:text-4xl font-extrabold font-mono-num text-[#E9C88B]">2</div>
+          <p class="text-[11px] text-[#FF8EBD]">سنين من التفاصيل الحلوة</p>
         </div>
-      </section>
-
-      <!-- Birthday Cake -->
-      <section id="cake-sec" class="p-8 rounded-2xl bg-[#17102B] border border-[#FF8EBD]/35 space-y-4 text-center">
-        <div class="flex justify-between items-center">
-          <h2 class="text-3xl font-extrabold">تورتة عيد ميلاد أوشا 🎂</h2>
-          <button onclick="findHeart('h4', this)" class="px-3 py-1 text-xs rounded-lg bg-[#090B1C] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">قلب مستخبي #4 ❤️</button>
+        <div class="glass-card rounded-2xl p-5 text-center space-y-1">
+          <p class="text-xs text-[#F5EAF2]/70">الثواني لحظة بلحظة</p>
+          <div id="cnt-seconds" class="text-2xl sm:text-3xl font-extrabold font-mono-num text-[#F5EAF2]">66,513,000</div>
+          <p id="cnt-clock" class="text-[11px] font-mono-num text-[#E9C88B]">+00:00:00 اليوم</p>
         </div>
-        <p id="cake-status" class="text-2xl font-extrabold text-[#E9C88B]">الشموع منورة ✨ اتمني أمنية!</p>
-        <div class="flex justify-center gap-4">
-          <button onclick="document.getElementById('cake-status').textContent='كل سنة وإنتي طيبة يا آيوش ❤️'" class="px-6 py-3 font-bold text-[#090B1C] bg-[#FF8EBD] rounded-xl cursor-pointer">اطفي الشموع يا أوشا</button>
-          <button onclick="document.getElementById('cake-status').textContent='الشموع رجعت منورة تاني 😂✨'" class="px-6 py-3 font-bold bg-[#090B1C] border border-[#E9C88B]/40 rounded-xl cursor-pointer">رجعي الشموع تاني 😂</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="glass-card rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-mono-num text-[#E9C88B]">03 أكتوبر 2024 · البداية</span>
+          <h3 class="text-lg font-extrabold text-[#F5EAF2]">أول يوم كلام</h3>
+          <p class="text-sm text-[#F5EAF2]/80 leading-relaxed">اليوم اللي بدأ فيه كل حاجة... كان يوم يبان عادي بس غير تفاصيل كتير أوي بعده.</p>
         </div>
-      </section>
+        <div class="glass-card rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-mono-num text-[#FF8EBD]">كوميديا تاريخية · PDF</span>
+          <h3 class="text-lg font-extrabold text-[#F5EAF2]">موقف مضحك</h3>
+          <p class="text-sm text-[#F5EAF2]/80 leading-relaxed">طبعًا على رأسهم حكاية "أحلى ملف PDF جمعنا سوا 😍😂" والضحك اللي مبيخلصش كل ما نفتكره.</p>
+        </div>
+        <div class="glass-card rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-mono-num text-[#E9C88B]">01 يناير 2008 · ميلاد القمر</span>
+          <h3 class="text-lg font-extrabold text-[#F5EAF2]">تفصيلة مميزة</h3>
+          <p class="text-sm text-[#F5EAF2]/80 leading-relaxed">طريقة كلامك، عنادك اللطيف في النقاشات، وكل التفاصيل الصغيرة اللي بتميزك يا فثعونتي.</p>
+        </div>
+      </div>
+    </section>
 
-      <!-- Finale -->
-      <section id="finale" class="p-10 rounded-3xl bg-gradient-to-b from-[#17102B] to-[#090B1C] border border-[#E9C88B]/50 text-center space-y-5">
-        <button onclick="findHeart('h5', this)" class="px-3 py-1 text-xs rounded-lg bg-[#17102B] border border-[#E9C88B]/40 text-[#E9C88B] cursor-pointer">القلب الخامس والأخير #5 ❤️</button>
-        <h2 class="text-4xl font-extrabold">Happy 11:11 يا أوشا ❤️</h2>
-        <p class="text-2xl font-bold text-[#FF8EBD]">بحبك يا أحلى وأجمل بنوتة في حياتي.</p>
-        <p class="text-xl font-bold text-[#E9C88B]">ويا فثعونتي، يا بنوتة بابي 😂❤️</p>
-        <p class="max-w-2xl mx-auto text-[#F5EAF2]/90">عملتلك الموقع ده عشان أفرحك، وأجمع فيه شوية تفاصيل تخصنا، من أول 3 أكتوبر 2024 لحد ملف الـ PDF الأسطوري 😂</p>
-        <p class="text-xl font-extrabold text-[#E9C88B]">كل 11:11 وإنتي بخير يا آيوش.</p>
-      </section>
-    </main>
-  </div>
+    <!-- 03. 11 3D LOVE LETTERS -->
+    <section id="love-letters" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-mono-num text-[#E9C88B]">02 · 11 ظرف تفاعلي ثلاثي الأبعاد بختم الشمع</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#F5EAF2] mt-1">11 رسالة حب خاصة لـ أوشا 💌</h2>
+        </div>
+        <span id="letters-count-badge" class="px-3.5 py-1.5 rounded-xl bg-[#17102B] border border-[#E9C88B]/35 text-xs font-bold text-[#E9C88B]">
+          الرسائل المفتوحة: 1 من 11
+        </span>
+      </div>
 
-  <script>
-    const CONFIG = {
-  "girlName": "آيوش",
-  "nickname": "أوشا",
-  "affectionateNicknames": [
-    "يا أوشا",
-    "يا آيوش",
-    "يا أحلى وأجمل بنوتة في حياتي",
-    "يا فثعونتي",
-    "يا بنوتة بابي"
-  ],
-  "dates": {
-    "firstConversationISO": "2024-10-03T00:00:00",
-    "firstConversationDisplay": "03 أكتوبر 2024",
-    "birthdayISO": "2008-01-01T00:00:00",
-    "birthdayDisplay": "01.01.2008",
-    "specialOccasionISO": "2026-11-11T11:11:00",
-    "specialOccasionDisplay": "11 نوفمبر 2026",
-    "specialTime": "11:11"
-  },
-  "insideJoke": "أحلى ملف PDF جمعنا سوا 😍😂",
-  "intro": {
-    "line1": "إيه يا أوشا... مستعدة للمفاجأة؟ 😂❤️",
-    "line2": "المرة دي مش مجرد رسالة وخلاص.",
-    "ctaButton": "يلا افتحي المفاجأة",
-    "skipButton": "تخطي المقدمة"
-  },
-  "hero": {
-    "title": "Happy 11:11 يا أوشا ❤️",
-    "mainMessage": "بحبك يا أحلى وأجمل بنوتة في حياتي.",
-    "subMessage": "وعشان كده عملتلك حاجة صغيرة... بس واخدة وقت وتفكير أكتر مما تتخيلي 😂",
-    "discoverCta": "ابدئي رحلة الاستكشاف"
-  },
-  "storyTimeline": {
-    "title": "فاكرة بدأنا كلام إمتى؟",
-    "subtitle": "محطات حكايتنا من أول يوم ولحد اللحظة دي (تقدري تعدلي أو تضيفي تفاصيلك في أي وقت)",
-    "milestones": [
-      {
-        "id": "m1",
-        "date": "03 أكتوبر 2024",
-        "title": "أول يوم كلام",
-        "description": "اليوم اللي بدأ فيه كل حاجة... كان يوم يبان عادي بس غير تفاصيل كتير أوي بعده.",
-        "category": "البداية",
-        "isEditable": true
-      },
-      {
-        "id": "m2",
-        "date": "ذكرى لا تُنسى",
-        "title": "أول ذكرى",
-        "description": "أول مرة نحس إن الكلام بينا مش مجرد شات عادي، وإن فيه تفاهم وراحة مختلفة. (مساحة جاهزة لكتابة تفصيلتكم الخاصة)",
-        "category": "ذكرى خاصة",
-        "isEditable": true
-      },
-      {
-        "id": "m3",
-        "date": "كوميديا تاريخية",
-        "title": "موقف مضحك",
-        "description": "طبعًا على رأسهم حكاية \"أحلى ملف PDF جمعنا سوا 😍😂\" والضحك اللي مبيخلصش كل ما نفتكره.",
-        "category": "ضحك",
-        "isEditable": true
-      },
-      {
-        "id": "m4",
-        "date": "بين السطور",
-        "title": "تفصيلة مميزة",
-        "description": "طريقة كلامك، عنادك اللطيف في النقاشات، وكل التفاصيل الصغيرة اللي بتميزك يا فثعونتي.",
-        "category": "تفاصيل أوشا",
-        "isEditable": true
-      },
-      {
-        "id": "m5",
-        "date": "المستقبل كله",
-        "title": "حاجات لسه جاية",
-        "description": "أيام حلوة، ضحك أكتر، ومواقف جديدة لسه هنعيشها ونكتبها هنا سوا إن شاء الله.",
-        "category": "اللي جاي",
-        "isEditable": true
-      }
-    ]
-  },
-  "counter": {
-    "title": "إحنا بقالنا قد إيه بنتكلم؟",
-    "cards": [
-      "من هنا بدأت الحكاية.",
-      "كل يوم فيه تفصيلة جديدة.",
-      "والنهارده 11:11."
-    ],
-    "birthdayCard": "01.01.2008 — يوم ميلاد أوشا."
-  },
-  "loveLetters": [
-    {
-      "id": 1,
-      "numberLabel": "01",
-      "title": "البداية اللي فرقت",
-      "content": "أول يوم اتكلمنا فيه كان يوم عادي جدًا... بس بصراحة مبسوط إن الكلام ده بدأ.",
-      "sealColor": "#E9C88B"
-    },
-    {
-      "id": 2,
-      "numberLabel": "02",
-      "title": "تفاصيلك الصغيرة",
-      "content": "بحبك يا أحلى وأجمل بنوتة في حياتي، وبحب تفاصيلك الصغيرة اللي يمكن إنتي مش واخدة بالك منها.",
-      "sealColor": "#FF8EBD"
-    },
-    {
-      "id": 3,
-      "numberLabel": "03",
-      "title": "اللقب الرسمي",
-      "content": "يا فثعونتي، يا بنوتة بابي 😂❤️",
-      "sealColor": "#E9C88B"
-    },
-    {
-      "id": 4,
-      "numberLabel": "04",
-      "title": "حقيقة علمية مؤكدة",
-      "content": "عارفة إنك ساعات بتبقي عايزة تكسبي أي نقاش حتى لو مش معاكي حق؟ 😂",
-      "sealColor": "#FF8EBD"
-    },
-    {
-      "id": 5,
-      "numberLabel": "05",
-      "title": "مشاركة اليوم",
-      "content": "أنا مبسوط إن فيه حد زيك أقدر أشاركه تفاصيل يومي.",
-      "sealColor": "#E9C88B"
-    },
-    {
-      "id": 6,
-      "numberLabel": "06",
-      "title": "من غير مناسبة",
-      "content": "مش لازم يكون فيه مناسبة عشان أقولك إني بحبك.",
-      "sealColor": "#FF8EBD"
-    },
-    {
-      "id": 7,
-      "numberLabel": "07",
-      "title": "متحف الـ PDF",
-      "content": "لسه فاكرين ملف الـ PDF؟ 😂 ده محتاج يتعمله متحف لوحده.",
-      "sealColor": "#E9C88B"
-    },
-    {
-      "id": 8,
-      "numberLabel": "08",
-      "title": "الذاكرة الحقيقية",
-      "content": "أحلى حاجة إن التفاصيل الصغيرة بتفضل فاكرة نفسها.",
-      "sealColor": "#FF8EBD"
-    },
-    {
-      "id": 9,
-      "numberLabel": "09",
-      "title": "الأيام الجاية",
-      "content": "أتمنى الأيام الجاية تكون مليانة حاجات حلوة وضحك وذكريات جديدة.",
-      "sealColor": "#E9C88B"
-    },
-    {
-      "id": 10,
-      "numberLabel": "10",
-      "title": "أمنية 11:11",
-      "content": "كل 11:11 وإنتي طيبة يا أوشا.",
-      "sealColor": "#FF8EBD"
-    },
-    {
-      "id": 11,
-      "numberLabel": "11",
-      "title": "مخصوص عشانك",
-      "content": "بحبك يا آيوش، ودي مش رسالة محفوظة... دي رسالة مخصوص ليكي.",
-      "sealColor": "#E9C88B"
-    }
-  ],
-  "mysteryBoxes": [
-    {
-      "id": 1,
-      "name": "The Love Box",
-      "arabicTitle": "صندوق الحب الأول",
-      "subtitle": "لمسة دافية من القلب",
-      "revealText": "بحبك يا أحلى وأجمل بنوتة في حياتي ❤️",
-      "boxColor": "#FF8EBD",
-      "ribbonColor": "#E9C88B",
-      "effectType": "hearts"
-    },
-    {
-      "id": 2,
-      "name": "The Funny Box",
-      "arabicTitle": "صندوق الدلع والضحك",
-      "subtitle": "بصمة أوشا المميزة",
-      "revealText": "يا فثعونتي يا بنوتة بابي 😂",
-      "boxColor": "#E9C88B",
-      "ribbonColor": "#17102B",
-      "effectType": "laugh"
-    },
-    {
-      "id": 3,
-      "name": "The Memory Box",
-      "arabicTitle": "صندوق الذكرى الخالدة",
-      "subtitle": "السر اللي بدأ الحكاية",
-      "revealText": "تفتكري أحلى ملف PDF جمعنا سوا؟ 😍😂",
-      "boxColor": "#7E57C2",
-      "ribbonColor": "#E9C88B",
-      "effectType": "pdf"
-    },
-    {
-      "id": 4,
-      "name": "The Secret Box",
-      "arabicTitle": "الصندوق السري المتغير",
-      "subtitle": "كل ضغطة برسالة مختلفة ليكي",
-      "revealText": "وجودك يا آيوش بيخلي أي يوم عادي يتحول ليوم ليه طعم مختلف ❤️",
-      "boxColor": "#26A69A",
-      "ribbonColor": "#FF8EBD",
-      "effectType": "random"
-    },
-    {
-      "id": 5,
-      "name": "The Final Box",
-      "arabicTitle": "الصندوق الخامس",
-      "subtitle": "محطة قبل الأسرار الكبيرة",
-      "revealText": "المفاجأة لسه مخلصتش... كملي يا أوشا 😂",
-      "boxColor": "#EC407A",
-      "ribbonColor": "#F5EAF2",
-      "effectType": "finale"
-    }
-  ],
-  "secretBoxRandomPool": [
-    "وجودك يا آيوش بيخلي أي يوم عادي يتحول ليوم ليه طعم مختلف ❤️",
-    "ضحكتك لوحدها كفاية تفصلني عن أي تعب أو زعل يا أوشا.",
-    "يا فثعونتي، إنتي أحلى صدفة حصلت من يوم 3 أكتوبر 2024 😂❤️",
-    "حتى لما بتعاندي في الكلام، برضو بتطلعي أحلى بنوتة في نظري 😂",
-    "كل تفصيلة صغيرة بينا ليها مكان محفوظ ومبيتغيرش يا بنوتة بابي."
-  ],
-  "pdfEasterEgg": {
-    "sectionTitle": "ملف القضية رقم 11:11",
-    "subtitle": "أحلى ملف PDF جمعنا سوا 😍😂",
-    "buttonLabel": "افتحي الملف الأسطوري",
-    "foundHeader": "تم العثور على ملف تاريخي نادر...",
-    "fileNameLabel": "اسم الملف: أحلى ملف PDF.",
-    "reasonLabel": "سبب الأهمية: لأنه جمع تفاصيل حلوة وضحك وذكريات.",
-    "verdictLabel": "الحكم النهائي: الملف ده ممنوع يتنسي 😂❤️",
-    "stampText": "TOP SECRET // 11:11 CLASSIFIED",
-    "customPdfUrl": ""
-  },
-  "birthdayCake": {
-    "blowButton": "اطفي الشموع يا أوشا",
-    "relightButton": "رجعي الشموع تاني 😂",
-    "celebrationMessage": "كل سنة وإنتي طيبة يا آيوش ❤️",
-    "subNote": "ميلاد أوشا المميز: 01 يناير 2008 — شمعة منورة دايمًا في حياتي."
-  },
-  "wishingStars": {
-    "title": "اختاري 3 نجوم يا أوشا ✨",
-    "subtitle": "اضغطي على النجوم المضيئة في السما التفاعلية واكتشفي كل نجمة مخبية إيه",
-    "starMessages": [
-      {
-        "id": 1,
-        "name": "نجمة البداية",
-        "message": "أول نجمة بتفكرك إن 3 أكتوبر 2024 كان أحلى بداية."
-      },
-      {
-        "id": 2,
-        "name": "نجمة الضحكة",
-        "message": "تاني نجمة بتقولك خلي ضحكتك دايمًا منورة يا فثعونتي 😂❤️"
-      },
-      {
-        "id": 3,
-        "name": "نجمة الـ PDF",
-        "message": "تالت نجمة شاهدة على أحلى ملف PDF جمعنا سوا 😍😂"
-      },
-      {
-        "id": 4,
-        "name": "نجمة بنوتة بابي",
-        "message": "نجمة مخصوص لأحلى وأجمل بنوتة في حياتي."
-      },
-      {
-        "id": 5,
-        "name": "نجمة تفاصيلك",
-        "message": "كل تفصيلة صغيرة في كلامك ليها لمعة زي النجمة دي بالظبط."
-      },
-      {
-        "id": 6,
-        "name": "نجمة راحة البال",
-        "message": "بتمنالك أيام كلها راحة وفرحة ومفيهاش أي زعل يا آيوش."
-      },
-      {
-        "id": 7,
-        "name": "نجمة 11:11",
-        "message": "الساعة 11:11 دايمًا ليها معنى مختلف عشان بتفكرني بيكي."
-      }
-    ],
-    "finalThreeStarsReward": "جمعتي الـ 3 نجوم يا أوشا! ✨ الأمنية الحقيقية إننا نفضل دايمًا فاكرين ضحكنا وتفاصيلنا الحلوة سوا ❤️"
-  },
-  "hiddenHearts": {
-    "counterLabel": "لقيتي كام قلب؟",
-    "completedTitle": "شطورة يا أوشا 😂❤️",
-    "extraLoveNote": "لقيتي الـ 5 قلوب المستخبية في الكون ده كله! زي ما بتاخدي بالك من التفاصيل الصغيرة، حبيت أخبي لك تفصيلة في كل ركن عشان تفرحي لما تلاقيها يا بنوتة بابي ❤️",
-    "locations": [
-      {
-        "id": "heart-hero",
-        "hint": "في أول الصفحة جنب عنوان 11:11"
-      },
-      {
-        "id": "heart-story",
-        "hint": "مستخبي بين تواريخ حكايتنا والعداد"
-      },
-      {
-        "id": "heart-pdf",
-        "hint": "جوه غرفة ملف الـ PDF السري"
-      },
-      {
-        "id": "heart-cake",
-        "hint": "قريب من تورتة عيد ميلاد أوشا"
-      },
-      {
-        "id": "heart-finale",
-        "hint": "في المشهد الختامي الأخير"
-      }
-    ]
-  },
-  "quiz": {
-    "title": "اختبار أوشا السريع 😂❤️",
-    "subtitle": "5 أسئلة خفيفة ومش محتاجة غش (لأن النتيجة معروفة من الأول)",
-    "questions": [
-      {
-        "id": 1,
-        "question": "مين صاحبة أحلى PDF في التاريخ؟",
-        "options": [
-          "أوشا طبعًا.",
-          "أوشا برضو.",
-          "السؤال ده محتاج تفكير؟ 😂"
-        ],
-        "correctNote": "كل الإجابات صح 😂❤️"
-      },
-      {
-        "id": 2,
-        "question": "لما أوشا بتدخل أي نقاش، إيه القاعدة الأساسية؟",
-        "options": [
-          "أوشا صح حتى لو غلط 😂",
-          "الطرف التاني يقتنع بهدوء",
-          "راجع الإجابة الأولى والتانية مع بعض"
-        ],
-        "correctNote": "بالظبط كدة! النقاش محسوم لصالح فثعونتي من قبل ما يبدأ 😂"
-      },
-      {
-        "id": 3,
-        "question": "إيه اليوم اللي بدأ فيه أحلى كلام بينا؟",
-        "options": [
-          "03 أكتوبر 2024 ❤️",
-          "أحلى يوم في أكتوبر",
-          "اليوم اللي فتح القصة كلها"
-        ],
-        "correctNote": "صح طبعًا! 03 أكتوبر 2024 تاريخ محفور وميتنسيش."
-      },
-      {
-        "id": 4,
-        "question": "مين هي \"فثعونتي\" و\"بنوتة بابي\"؟",
-        "options": [
-          "آيوش ❤️",
-          "أوشا القمر",
-          "أحلى وأجمل بنوتة في حياتي"
-        ],
-        "correctNote": "كل الألقاب دي متفصلة عليكي لوحدك يا أوشا 😂❤️"
-      },
-      {
-        "id": 5,
-        "question": "لما الساعة تيجي 11:11، إيه أول حاجة بتيجي في البال؟",
-        "options": [
-          "Happy 11:11 يا أوشا ❤️",
-          "رسالة حلوة لآيوش",
-          "تفصيلة تفرح قلبها"
-        ],
-        "correctNote": "100% صح! كل 11:11 وإنتي منورة دنيتي يا آيوش."
-      }
-    ],
-    "completionTitle": "النتيجة النهائية: 5 من 5 بتفوق أسطوري! 🎉",
-    "completionMessage": "كل الإجابات صح 😂❤️ لأن الاختبار ده أصلًا متفصل عشان يفكرك قد إيه إنتي مميزة وغالية عندي يا أوشا."
-  },
-  "futureLetter": {
-    "title": "رسالة صغيرة من المستقبل...",
-    "sealLabel": "مختوم لـ أوشا — 11:11",
-    "message": "يا أوشا، أتمنى لما نفتكر الأيام دي نكون لسه فاكرين كل التفاصيل الصغيرة اللي كانت بتضحكنا.",
-    "footerSign": "مكتوبة بكل حب عشان تفضل ذكرى حلوة بينا دايمًا ❤️"
-  },
-  "mysteryGift": {
-    "beforeOpenText": "في هدية صغيرة مستخبية ليكي...",
-    "afterOpenText": "الهدية الحقيقية إنك تلاقي حد فكر يعمل كل التفاصيل دي عشان يفرحك.",
-    "secondaryNote": "كل سطر كود وكل حركة في الموقع ده اتعملت عشان ترسم ضحكة حقيقية على وشك يا آيوش ❤️"
-  },
-  "scratchCard": {
-    "title": "كارت الخدش السري ✨",
-    "instruction": "امسحي الطبقة الذهبية بصباعك أو بالماوس عشان تظهري الرسالة المستخبية تحته!",
-    "hiddenMessage": "مفاجأة إضافية لـ فثعونتي: ضحكتك عندي بالدنيا كلها يا أحلى بنوتة بابي 😂❤️"
-  },
-  "randomLoveMessages": [
-    "بحبك يا أحلى وأجمل بنوتة في حياتي ❤️",
-    "يا فثعونتي، إنتي بهجة أي يوم عادي 😂❤️",
-    "لسه فاكر أول يوم كلام يوم 3 أكتوبر 2024 كأنه امبارح.",
-    "يا بنوتة بابي، خليكي دايمًا بتضحكي كدة.",
-    "أحلى ملف PDF جمعنا سوا هيفضل أشهر قصة في التاريخ 😍😂",
-    "كل 11:11 وإنتي أول حد يجي في بالي يا أوشا.",
-    "تفاصيلك الصغيرة هي اللي بتخلي الكلام معاكي ميتشبعش منه.",
-    "حتى لما بتعاندي في النقاش، برضو بكون مبسوط وأنا بكلمك 😂",
-    "ميلادك 01.01.2008 هو بداية كل حاجة حلوة يا آيوش.",
-    "مش محتاج مناسبة كبيرة عشان أفكرك قد إيه إنتي غالية عندي.",
-    "يا آيوش، أتمنى الموقع ده يكون خلاكي تبتسمي من قلبك النهارده ❤️"
-  ],
-  "polaroidWall": {
-    "title": "حائط الذكريات واللحظات (Polaroid Wall)",
-    "subtitle": "إطارات مخصصة لتفاصيلنا — تقدري تضيفي صورك أو تعدلي التعليقات وتحتفظي بيها",
-    "frames": [
-      {
-        "id": "p1",
-        "caption": "بداية الحكاية كلها",
-        "dateLabel": "03.10.2024",
-        "note": "أول محادثة فتحت باب لكل الضحك والذكريات الحلوة."
-      },
-      {
-        "id": "p2",
-        "caption": "الوثيقة التاريخية الأهم",
-        "dateLabel": "PDF Archive",
-        "note": "أحلى ملف PDF جمعنا سوا 😍😂 — ذكرى ليها مكانها الخاص."
-      },
-      {
-        "id": "p3",
-        "caption": "يوم ميلاد أوشا",
-        "dateLabel": "01.01.2008",
-        "note": "اليوم اللي جت فيه أحلى وأجمل بنوتة في حياتي."
-      },
-      {
-        "id": "p4",
-        "caption": "لحظة 11:11 المميزة",
-        "dateLabel": "11.11.2026",
-        "note": "ذكرى تصميم العالم التفاعلي ده مخصوص عشان فثعونتي."
-      }
-    ]
-  },
-  "developerTerminal": {
-    "triggerLabel": "بروتوكول المطور السري 11:11",
-    "lines": [
-      "> Initializing Osha's Surprise...",
-      "> Loading special memories since 2024-10-03...",
-      "> Verifying Birthday Record: 2008-01-01 [OSHA_VERIFIED]...",
-      "> Searching for the legendary PDF (\"أحلى ملف PDF جمعنا سوا\")...",
-      "> 11:11 Protocol Activated.",
-      "> Access Granted ❤️"
-    ]
-  },
-  "finalSecretMessage": "🔓 السر الأخير اتفتح! بما إنك استكشفتي الموقع وجربتي تفاصيله... حابب أقولك إن وجودك في حياتي يا آيوش هو أحلى تفصيلة حصلت بجد، وكل تعب في الكود ده يهون عشان ضحكة واحدة منك يا أوشا ❤️",
-  "grandFinale": {
-    "headline": "Happy 11:11 يا أوشا ❤️",
-    "line1": "بحبك يا أحلى وأجمل بنوتة في حياتي.",
-    "line2": "ويا فثعونتي، يا بنوتة بابي 😂❤️",
-    "summaryParagraph": "عملتلك الموقع ده عشان أفرحك، وأجمع فيه شوية تفاصيل تخصنا، من أول 3 أكتوبر 2024 لحد ملف الـ PDF الأسطوري 😂",
-    "closingWish": "كل 11:11 وإنتي بخير يا آيوش.",
-    "replayLabel": "إعادة الاحتفال والألعاب النارية",
-    "returnTopLabel": "العودة لبداية الرحلة"
-  }
-};
-    let foundHearts = new Set();
+      <div class="glass-card rounded-2xl p-4 sm:p-6 space-y-4">
+        <p class="text-xs sm:text-sm text-[#F5EAF2]/80">اضغطي على أي ظرف في المشهد ثلاثي الأبعاد أو من الأزرار تحت عشان تفتحيه وتقرأي الرسالة:</p>
+        <div id="envelopes-3d-canvas" class="w-full h-[290px] sm:h-[340px] rounded-xl bg-[#090B1C]/90 border border-[#E9C88B]/20 overflow-hidden cursor-pointer"></div>
+        <div id="letters-buttons-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5"></div>
+        <div class="rounded-2xl bg-[#090B1C] border border-[#FF8EBD]/40 p-5 sm:p-6 space-y-2">
+          <div class="flex items-center justify-between">
+            <span id="active-letter-tag" class="text-xs font-mono-num text-[#E9C88B]">رسالة رقم 01 / 11</span>
+            <span class="text-xs text-[#FF8EBD]">مكتوبة مخصوص لـ أوشا (آيوش) ❤️</span>
+          </div>
+          <h3 id="active-letter-title" class="text-lg sm:text-xl font-extrabold text-[#F5EAF2]">البداية اللي فرقت</h3>
+          <p id="active-letter-body" class="text-base sm:text-lg text-[#F5EAF2]/95 leading-relaxed pt-1">
+            "أول يوم اتكلمنا فيه كان يوم عادي جدًا... بس بصراحة مبسوط إن الكلام ده بدأ."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. 5 3D MYSTERY BOXES -->
+    <section id="mystery-boxes" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-mono-num text-[#E9C88B]">03 · 5 صناديق مفاجآت ثلاثية الأبعاد</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#F5EAF2] mt-1">مجموعة الصناديق السرية 🎁</h2>
+        </div>
+        <span id="boxes-count-badge" class="px-3.5 py-1.5 rounded-xl bg-[#17102B] border border-[#FF8EBD]/35 text-xs font-bold text-[#FF8EBD]">
+          الصناديق المكتشفة: 1 من 5
+        </span>
+      </div>
+
+      <div class="glass-card rounded-2xl p-4 sm:p-6 space-y-5">
+        <div id="boxes-3d-canvas" class="w-full h-[270px] sm:h-[320px] rounded-xl bg-[#090B1C]/90 border border-[#E9C88B]/20 overflow-hidden cursor-pointer"></div>
+        <div id="boxes-buttons-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3"></div>
+        <div class="rounded-2xl bg-[#090B1C] border border-[#E9C88B]/45 p-5 sm:p-6 text-center space-y-2">
+          <div id="active-box-tag" class="text-xs font-mono-num text-[#E9C88B]">The Love Box · صندوق الحب الأول</div>
+          <p id="active-box-msg" class="text-lg sm:text-xl font-extrabold text-[#F5EAF2]">
+            "بحبك يا أحلى وأجمل بنوتة في حياتي ❤️"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. 3D PDF EASTER EGG -->
+    <section id="pdf-story" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-mono-num text-[#E9C88B]">04 · الأرشيف السري للغاية // CASE #11:11</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#F5EAF2] mt-1">ملف القضية رقم 11:11 📁</h2>
+          <p class="text-sm text-[#FF8EBD] font-bold mt-1">أحلى ملف PDF جمعنا سوا 😍😂</p>
+        </div>
+        <button data-heart="3" class="heart-hunt-btn inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#17102B] border border-[#FF8EBD]/35 text-xs text-[#FF8EBD] cursor-pointer">
+          <span>❤️</span>
+          <span class="heart-label">قلب مستخبي #3</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card rounded-2xl p-5 sm:p-7">
+        <div class="lg:col-span-5 space-y-4 text-center">
+          <div id="pdf-3d-canvas" class="w-full h-[270px] rounded-xl bg-[#090B1C]/90 border border-[#E9C88B]/25 overflow-hidden cursor-pointer"></div>
+          <button id="toggle-pdf-btn" class="w-full py-3.5 px-6 rounded-xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] hover:brightness-110 transition-all cursor-pointer">
+            افتحي الملف الأسطوري 📂
+          </button>
+        </div>
+        <div class="lg:col-span-7 rounded-2xl bg-[#090B1C] border border-[#E9C88B]/35 p-5 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-[#E9C88B]/20 pb-3 text-xs font-mono-num text-[#E9C88B]">
+            <span>TOP SECRET // 11:11 CLASSIFIED</span>
+            <span>ARCHIVE 03.10.2024</span>
+          </div>
+          <div id="pdf-content-area" class="space-y-3">
+            <p class="text-base font-bold text-[#E9C88B]">الملف مقفول بختم السرية 11:11 🔒</p>
+            <p class="text-sm text-[#F5EAF2]/85 leading-relaxed">
+              اضغطي على زر "افتحي الملف الأسطوري" أو على الفولدر ثلاثي الأبعاد عشان تفتحي الوثيقة التاريخية وتقرأي التقرير الكامل!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. 3D BIRTHDAY CAKE -->
+    <section id="birthday-cake" class="space-y-6 scroll-mt-20">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-mono-num text-[#E9C88B]">05 · احتفال ميلاد أوشا 01.01.2008</p>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#F5EAF2] mt-1">تورتة أوشا التفاعلية ثلاثية الأبعاد 🎂</h2>
+        </div>
+        <button data-heart="4" class="heart-hunt-btn inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#17102B] border border-[#FF8EBD]/35 text-xs text-[#FF8EBD] cursor-pointer">
+          <span>❤️</span>
+          <span class="heart-label">قلب مستخبي #4</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card rounded-2xl p-5 sm:p-7">
+        <div class="lg:col-span-6">
+          <div id="cake-3d-canvas" class="w-full h-[320px] sm:h-[360px] rounded-2xl bg-[#090B1C]/90 border border-[#E9C88B]/25 overflow-hidden cursor-pointer"></div>
+        </div>
+        <div class="lg:col-span-6 space-y-5">
+          <div class="space-y-2">
+            <p class="text-xs font-mono-num text-[#E9C88B]">01 JANUARY 2008 · OSHA'S SPECIAL CAKE</p>
+            <h3 class="text-2xl font-extrabold text-[#F5EAF2]">اتمني أمنية حلوة واطفي الشموع ✨</h3>
+            <p class="text-sm text-[#F5EAF2]/80">ميلاد أوشا المميز: 01 يناير 2008 — شمعة منورة دايمًا في حياتي.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button id="blow-candles-btn" class="px-6 py-3.5 rounded-xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] hover:brightness-110 transition-all cursor-pointer">
+              اطفي الشموع يا أوشا 🕯️✨
+            </button>
+            <button id="relight-candles-btn" class="px-5 py-3.5 rounded-xl font-bold text-sm text-[#F5EAF2] bg-[#090B1C] border border-[#E9C88B]/35 hover:border-[#FF8EBD] transition-all cursor-pointer">
+              رجعي الشموع تاني 😂
+            </button>
+          </div>
+          <div id="cake-wish-box" class="hidden rounded-2xl bg-[#090B1C] border border-[#FF8EBD]/45 p-5 space-y-1.5">
+            <p class="text-xs font-bold text-[#E9C88B]">الأمنية اتحققت ✨</p>
+            <p class="text-base font-extrabold text-[#F5EAF2]">
+              "كل سنة وإنتي أحلى وأجمل بنوتة في حياتي يا أوشا... ربنا يخليكي ليا ويديم ضحكتك يا فثعونتي ❤️🎂"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. 3D WISHING STARS & GAMES -->
+    <section id="secret-games" class="space-y-10 scroll-mt-20">
+      <!-- Wishing Stars 3D -->
+      <div class="glass-card rounded-2xl p-5 sm:p-7 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p class="text-xs font-mono-num text-[#E9C88B]">06 · سماء الأمنيات التفاعلية ثلاثية الأبعاد</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#F5EAF2] mt-1">اختاري 3 نجوم يا أوشا ✨</h2>
+          </div>
+          <span id="stars-count-badge" class="px-3.5 py-1.5 rounded-xl bg-[#090B1C] border border-[#E9C88B]/35 text-xs font-bold text-[#E9C88B]">
+            النجوم المختارة: 0 / 3
+          </span>
+        </div>
+        <div id="stars-3d-canvas" class="w-full h-[270px] sm:h-[310px] rounded-xl bg-[#090B1C]/90 border border-[#E9C88B]/20 overflow-hidden cursor-pointer"></div>
+        <div id="stars-buttons-grid" class="flex flex-wrap gap-2"></div>
+        <div class="rounded-2xl bg-[#090B1C] border border-[#E9C88B]/35 p-4 sm:p-5 space-y-1">
+          <span id="active-star-title" class="text-xs font-bold text-[#E9C88B]">نجمة البداية · رسالة النجمة:</span>
+          <p id="active-star-msg" class="text-base font-bold text-[#F5EAF2]">"أول نجمة بتفكرك إن 3 أكتوبر 2024 كان أحلى بداية."</p>
+          <p id="stars-unlocked-secret" class="hidden text-sm font-extrabold text-[#FF8EBD] pt-2 border-t border-[#FF8EBD]/20 mt-2">
+            ✨ مبروك يا آيوش! جمعتي 3 نجوم واتفتحتلك أمنية 11:11 الخاصة: "ربنا يكتبلك في كل خطوة سعادة على قد جمال قلبك يا بنوتة بابي ❤️"
+          </p>
+        </div>
+      </div>
+
+      <!-- Quiz & Scratch Card -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-4">
+          <h3 class="text-xl font-extrabold text-[#F5EAF2]">اختبار أوشا السريع 😂❤️</h3>
+          <p class="text-xs text-[#F5EAF2]/75">كل الإجابات بتأكد حقيقة واحدة معروفة من الأول:</p>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl bg-[#090B1C] border border-[#E9C88B]/25 space-y-2">
+              <p class="text-sm font-bold text-[#E9C88B]">1. مين صاحبة أحلى PDF في التاريخ؟</p>
+              <div class="flex flex-wrap gap-2">
+                <button class="quiz-opt px-3 py-1.5 rounded-lg bg-[#17102B] hover:bg-[#FF8EBD] hover:text-[#090B1C] text-xs font-bold transition-all cursor-pointer">أوشا طبعًا ❤️</button>
+                <button class="quiz-opt px-3 py-1.5 rounded-lg bg-[#17102B] hover:bg-[#FF8EBD] hover:text-[#090B1C] text-xs font-bold transition-all cursor-pointer">فثعونتي 😂</button>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#090B1C] border border-[#E9C88B]/25 space-y-2">
+              <p class="text-sm font-bold text-[#E9C88B]">2. لما أوشا بتدخل نقاش، إيه القاعدة؟</p>
+              <div class="flex flex-wrap gap-2">
+                <button class="quiz-opt px-3 py-1.5 rounded-lg bg-[#17102B] hover:bg-[#FF8EBD] hover:text-[#090B1C] text-xs font-bold transition-all cursor-pointer">أوشا صح حتى لو غلط 😂</button>
+                <button class="quiz-opt px-3 py-1.5 rounded-lg bg-[#17102B] hover:bg-[#FF8EBD] hover:text-[#090B1C] text-xs font-bold transition-all cursor-pointer">بنوتة بابي دايمًا تكسب ❤️</button>
+              </div>
+            </div>
+            <p id="quiz-feedback" class="text-xs font-bold text-[#FF8EBD] min-h-[1.25rem]"></p>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+          <div class="space-y-2">
+            <h3 class="text-xl font-extrabold text-[#F5EAF2]">كارت الخدش الذهبي وبروتوكول 11:11 ✨</h3>
+            <p class="text-xs text-[#F5EAF2]/75">اضغطي على الكارت الذهبي لكشف الرسالة السرية تحته:</p>
+          </div>
+          <div id="scratch-card-box" class="p-6 rounded-2xl bg-gradient-to-r from-[#E9C88B] via-[#FF8EBD] to-[#E9C88B] text-[#090B1C] text-center font-extrabold cursor-pointer select-none transition-all">
+            ✨ اضغطي هنا لمسح الطبقة الذهبية وكشف الرسالة السرية ✨
+          </div>
+          <div class="p-4 rounded-xl bg-[#090B1C] border border-[#E9C88B]/30 font-mono-num text-xs text-[#E9C88B] space-y-1" dir="ltr">
+            <div>&gt;TARGET: "Ayoosh (أوشا)"</div>
+            <div>&gt; FIRST_CHAT: "2024-10-03"</div>
+            <div>&gt; INSIDE_JOKE: "أحلى ملف PDF جمعنا سوا 😍😂"</div>
+            <div class="text-[#FF8EBD]">&gt; STATUS: "Loved infinitely at 11:11 ❤️"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. 3D MYSTERY GIFT & FINALE -->
+    <section id="finale" class="space-y-8 scroll-mt-20 pb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card rounded-2xl p-5 sm:p-7">
+        <div class="lg:col-span-5">
+          <div id="gift-3d-canvas" class="w-full h-[270px] sm:h-[300px] rounded-xl bg-[#090B1C]/90 border border-[#E9C88B]/25 overflow-hidden cursor-pointer"></div>
+        </div>
+        <div class="lg:col-span-7 space-y-4">
+          <p class="text-xs font-mono-num text-[#E9C88B]">07 · الهدية الكبيرة ثلاثية الأبعاد</p>
+          <h3 class="text-2xl font-extrabold text-[#F5EAF2]">في هدية صغيرة مستخبية ليكي... 🎁</h3>
+          <p class="text-sm text-[#F5EAF2]/85 leading-relaxed">
+            اضغطي على الصندوق ثلاثي الأبعاد أو على الزر تحت عشان تفتحي الغطاء الذهبي وتطلعي القلب المضيء اللي جواه.
+          </p>
+          <button id="toggle-gift-btn" class="px-6 py-3.5 rounded-xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] hover:brightness-110 transition-all cursor-pointer">
+            افتحي الهدية السرية ❤️
+          </button>
+          <div id="gift-secret-msg" class="hidden rounded-2xl bg-[#090B1C] border border-[#FF8EBD]/45 p-4 text-base font-bold text-[#F5EAF2]">
+            "الهدية الحقيقية هي وجودك في حياتي من يوم 3 أكتوبر 2024... يا أحلى آيوش ويا أغلى فثعونتي في الدنيا كلها ❤️"
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-5 border border-[#E9C88B]/40">
+        <button data-heart="5" class="heart-hunt-btn inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#090B1C] border border-[#FF8EBD]/35 text-xs text-[#FF8EBD] cursor-pointer">
+          <span>❤️</span>
+          <span class="heart-label">القلب المستخبي الخامس #5</span>
+        </button>
+        <div class="font-mono-num text-5xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#E9C88B] via-[#FF8EBD] to-[#E9C88B] glow-text">
+          11:11
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-[#F5EAF2]">Happy 11:11 يا أوشا ❤️</h2>
+        <p class="text-lg sm:text-xl font-bold text-[#FF8EBD]">بحبك يا أحلى وأجمل بنوتة في حياتي، ويا فثعونتي، يا بنوتة بابي 😂❤️</p>
+        <p class="max-w-xl mx-auto text-sm sm:text-base text-[#F5EAF2]/85 leading-relaxed">
+          عملتلك الموقع ده عشان أفرحك، وأجمع فيه شوية تفاصيل تخصنا، من أول 3 أكتوبر 2024 لحد ملف الـ PDF الأسطوري 😂
+          كل 11:11 وإنتي بخير يا آيوش.
+        </p>
+        <p id="all-hearts-reward" class="hidden text-base font-extrabold text-[#E9C88B] bg-[#090B1C] border border-[#E9C88B]/40 rounded-xl p-4 max-w-lg mx-auto">
+          🎉 مبروك يا أوشا! لقيتي الـ 5 قلوب المستخبية كلها! جايزتك: اعتراف رسمي إنك أشطر وأحلى بنوتة في الكون ❤️
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-10 border-t border-[#E9C88B]/20 py-6 text-center text-xs text-[#F5EAF2]/70">
+    صُنع بكل حب وتفاصيل خاصة لـ آيوش (أوشا) ❤️ — 11:11 · 03.10.2024 · 01.01.2008
+  </footer>
+
+  <!-- Full Three.js 3D Engine & Interactive Logic -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    // --- 1. DATA ---
+    const LETTERS = [
+      { id: 1, title: 'البداية اللي فرقت', body: 'أول يوم اتكلمنا فيه كان يوم عادي جدًا... بس بصراحة مبسوط إن الكلام ده بدأ.' },
+      { id: 2, title: 'تفاصيلك الصغيرة', body: 'إنتي من الناس القليلة اللي وجودهم بيفرق بجد في اليوم، حتى لو بكلمة صغيرة.' },
+      { id: 3, title: 'اللقب الرسمي', body: 'طبعًا لازم أقولك يا فثعونتي في وسط الكلام كده عشان متتنسيش 😂❤️' },
+      { id: 4, title: 'حقيقة علمية مؤكدة', body: 'آيوش... إنتي رسميًا أحلى وأجمل بنوتة في حياتي، ومفيش نقاش في النقطة دي.' },
+      { id: 5, title: 'مشاركة اليوم', body: 'بحب تفاصيل كلامنا العشوائي، وبحب إنك دايمًا أول حد بحب أحكيله أي حاجة.' },
+      { id: 6, title: 'من غير مناسبة', body: 'يا بنوتة بابي... ضحكتك وطريقتك ليهم معزة خاصة جدًا عندي.' },
+      { id: 7, title: 'متحف الـ PDF', body: 'مهما عدى وقت، هيفضل "أحلى ملف PDF جمعنا سوا 😍😂" هو البداية التاريخية بتاعتنا.' },
+      { id: 8, title: 'الذاكرة الحقيقية', body: 'ساعات بفتكر أول محادثة يوم 3 أكتوبر 2024 وأبتسم لوحدي.' },
+      { id: 9, title: 'الأيام الجاية', body: 'كل تفصيلة صغيرة بينا ليها مكانها، ولسه الأيام الجاية فيها حاجات أحلى.' },
+      { id: 10, title: 'أمنية 11:11', body: 'الساعة لما بتيجي 11:11 بتفكرني دايمًا إن في حد مميز زيك في حياتي.' },
+      { id: 11, title: 'مخصوص عشانك', body: 'الموقع ده كله بكل تفصيلة فيه اتعمل عشان يرسم ضحكة حلوة على وشك يا أوشا ❤️' }
+    ];
+
+    const BOXES = [
+      { id: 1, en: 'The Love Box', title: 'صندوق الحب الأول', msg: 'بحبك يا أحلى وأجمل بنوتة في حياتي ❤️', color: 0xff8ebd },
+      { id: 2, en: 'The Funny Box', title: 'صندوق الدلع والضحك', msg: 'إيه يا فثعونتي... فاكرة إن الصندوق هيبقى فاضي ولا إيه؟ 😂❤️', color: 0xe9c88b },
+      { id: 3, en: 'The Memory Box', title: 'صندوق الذكرى الخالدة', msg: 'طبعًا منقدرش ننسى: أحلى ملف PDF جمعنا سوا 😍😂 — البداية اللي مفيش زيها!', color: 0x9b6dff },
+      { id: 4, en: 'The Secret Box', title: 'الصندوق السري المتغير', msg: 'يا بنوتة بابي... وجودك بيخلي اليوم أهون وأحلى بكتير ❤️', color: 0xff6b9d },
+      { id: 5, en: 'The Final Box', title: 'الصندوق الخامس', msg: 'كل 11:11 وإنتي منورة دنيتي يا آيوش ✨', color: 0xf4d06f }
+    ];
+
+    const STARS = [
+      { id: 1, title: 'نجمة البداية', msg: 'أول نجمة بتفكرك إن 3 أكتوبر 2024 كان أحلى بداية.', pos: [-3.4, 1.1, 0] },
+      { id: 2, title: 'نجمة الضحكة', msg: 'تاني نجمة بتقولك خلي ضحكتك دايمًا منورة يا أوشا.', pos: [-2.1, -0.7, 0.3] },
+      { id: 3, title: 'نجمة الـ PDF', msg: 'نجمة مخصوص لتخليد أحلى ملف PDF جمعنا سوا 😍😂', pos: [-0.9, 1.3, -0.2] },
+      { id: 4, title: 'نجمة بنوتة بابي', msg: 'إنتي بنوتة بابي وفثعونتي الحلوة في كل وقت ❤️', pos: [0, -0.2, 0.5] },
+      { id: 5, title: 'نجمة تفاصيلك', msg: 'كل تفصيلة صغيرة في كلامك ليها غلاوة كبيرة عندي.', pos: [1.1, 1.2, 0.2] },
+      { id: 6, title: 'نجمة راحة البال', msg: 'بتمنالك راحة بال وفرحة على قد طيبة قلبك يا آيوش.', pos: [2.3, -0.8, -0.2] },
+      { id: 7, title: 'نجمة 11:11', msg: 'Happy 11:11 يا أحلى وأجمل بنوتة في حياتي ✨', pos: [3.4, 0.9, 0.1] }
+    ];
+
+    // --- 2. UI & COUNTER ---
+    const introPortal = document.getElementById('intro-portal');
+    const closeIntro = () => {
+      introPortal.style.opacity = '0';
+      setTimeout(() => introPortal.classList.add('hidden'), 650);
+    };
+    document.getElementById('enter-universe-btn').addEventListener('click', closeIntro);
+    document.getElementById('skip-intro-btn').addEventListener('click', closeIntro);
+
     let msgIdx = 0;
+    document.getElementById('random-msg-btn').addEventListener('click', () => {
+      msgIdx = (msgIdx + 1) % LETTERS.length;
+      document.getElementById('random-msg-display').textContent = `"${LETTERS[msgIdx].body}"`;
+    });
 
-    document.getElementById('intro-line1').textContent = CONFIG.intro.line1;
-    document.getElementById('intro-line2').textContent = CONFIG.intro.line2;
-    document.getElementById('random-msg-box').textContent = CONFIG.randomLoveMessages[0];
-
-    function enterSite() {
-      document.getElementById('intro-overlay').style.display = 'none';
-    }
-
-    function nextRandomLove() {
-      msgIdx = (msgIdx + 1) % CONFIG.randomLoveMessages.length;
-      document.getElementById('random-msg-box').textContent = CONFIG.randomLoveMessages[msgIdx];
-    }
-
-    function findHeart(id, btn) {
-      foundHearts.add(id);
-      btn.textContent = 'تم اكتشاف القلب ❤️';
-      document.getElementById('hearts-badge').textContent =
-        foundHearts.size >= 5 ? 'شطورة يا أوشا 😂❤️ (5/5)' : 'القلوب: ' + foundHearts.size + ' / 5 ❤️';
-    }
-
-    // Live Counter
+    const startDate = new Date('2024-10-03T00:00:00');
     function updateCounter() {
-      const start = new Date(CONFIG.dates.firstConversationISO).getTime();
-      const diff = Math.max(0, Date.now() - start);
-      const sec = Math.floor(diff / 1000);
-      const days = Math.floor(sec / 86400);
-      const months = Math.floor(days / 30.4375);
-      const years = Math.floor(days / 365.25);
-      document.getElementById('live-counter').innerHTML = [
-        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#E9C88B]">' + days + '</div><div class="text-xs">يوم</div></div>',
-        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#FF8EBD]">' + months + '</div><div class="text-xs">شهر</div></div>',
-        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#E9C88B]">' + years + '</div><div class="text-xs">سنة</div></div>',
-        '<div class="p-4 rounded-xl bg-[#17102B] border border-[#E9C88B]/30"><div class="text-2xl font-extrabold text-[#F5EAF2]">' + sec.toLocaleString() + '</div><div class="text-xs">ثانية</div></div>'
-      ].join('');
+      const now = new Date();
+      const diffMs = Math.max(0, now - startDate);
+      const totalSec = Math.floor(diffMs / 1000);
+      const totalDays = Math.floor(totalSec / 86400);
+      const years = Math.floor(totalDays / 365);
+      const months = Math.floor(totalDays / 30.4375);
+      document.getElementById('cnt-days').textContent = totalDays.toLocaleString('en-US');
+      document.getElementById('cnt-months').textContent = months.toLocaleString('en-US');
+      document.getElementById('cnt-years').textContent = years.toLocaleString('en-US');
+      document.getElementById('cnt-seconds').textContent = totalSec.toLocaleString('en-US');
+      const pad = (n) => String(n).padStart(2, '0');
+      document.getElementById('cnt-clock').textContent = `+${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} اليوم`;
     }
-    setInterval(updateCounter, 1000);
     updateCounter();
+    setInterval(updateCounter, 1000);
 
-    // Render Timeline
-    const tlGrid = document.getElementById('timeline-grid');
-    CONFIG.storyTimeline.milestones.forEach(m => {
-      const d = document.createElement('div');
-      d.className = 'p-5 rounded-xl bg-[#17102B] border border-[#F5EAF2]/15 space-y-2';
-      d.innerHTML = '<div class="text-xs text-[#E9C88B]">' + m.date + '</div><h3 class="font-bold text-lg">' + m.title + '</h3><p class="text-sm text-[#F5EAF2]/80">' + m.description + '</p>';
-      tlGrid.appendChild(d);
+    // Hidden Hearts
+    const foundHearts = new Set();
+    document.querySelectorAll('.heart-hunt-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-heart');
+        foundHearts.add(id);
+        btn.querySelector('.heart-label').textContent = `تم اكتشاف القلب #${id} ✨`;
+        document.getElementById('nav-hearts-badge').textContent = `❤️ القلوب: ${foundHearts.size} / 5`;
+        if (foundHearts.size === 5) {
+          document.getElementById('all-hearts-reward').classList.remove('hidden');
+        }
+      });
     });
 
-    // Render 11 Letters
-    const lGrid = document.getElementById('letters-grid');
-    const lViewer = document.getElementById('letter-viewer');
-    lViewer.textContent = CONFIG.loveLetters[0].content;
-    CONFIG.loveLetters.forEach(l => {
-      const b = document.createElement('button');
-      b.className = 'p-3 rounded-xl bg-[#17102B] border border-[#E9C88B]/30 text-right cursor-pointer hover:border-[#FF8EBD]';
-      b.innerHTML = '<div class="text-xs text-[#E9C88B]">LETTER ' + l.numberLabel + '</div><div class="font-bold text-sm">' + l.title + '</div>';
-      b.onclick = () => { lViewer.textContent = '"' + l.content + '"'; };
-      lGrid.appendChild(b);
+    // Quiz & Scratch Card
+    document.querySelectorAll('.quiz-opt').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.getElementById('quiz-feedback').textContent = 'إجابة صحيحة 100%! أوشا دايمًا كسبانة في كل حاجة 😂❤️';
+      });
+    });
+    document.getElementById('scratch-card-box').addEventListener('click', (e) => {
+      e.currentTarget.className = 'p-6 rounded-2xl bg-[#090B1C] border border-[#FF8EBD] text-[#F5EAF2] text-center font-extrabold';
+      e.currentTarget.textContent = '"مفاجأة إضافية لـ فثعونتي: ضحكتك عندي بالدنيا كلها يا أحلى بنوتة بابي 😂❤️"';
     });
 
-    // Render 5 Mystery Boxes
-    const bGrid = document.getElementById('boxes-grid');
-    const bViewer = document.getElementById('box-viewer');
-    bViewer.textContent = CONFIG.mysteryBoxes[0].revealText;
-    CONFIG.mysteryBoxes.forEach(bx => {
-      const b = document.createElement('button');
-      b.className = 'p-4 rounded-xl bg-[#17102B] border border-[#FF8EBD]/30 cursor-pointer hover:border-[#E9C88B]';
-      b.innerHTML = '<div class="text-xs text-[#E9C88B]">' + bx.name + '</div><div class="font-bold">' + bx.arabicTitle + '</div>';
-      b.onclick = () => { bViewer.textContent = '"' + bx.revealText + '"'; };
-      bGrid.appendChild(b);
-    });
+    // --- 3. SHARED THREE.JS HELPER ---
+    function createHeartShape(scale = 1) {
+      const s = new THREE.Shape();
+      s.moveTo(0, 0.25 * scale);
+      s.bezierCurveTo(0, 0.55 * scale, -0.5 * scale, 0.55 * scale, -0.5 * scale, 0.2 * scale);
+      s.bezierCurveTo(-0.5 * scale, -0.15 * scale, 0, -0.35 * scale, 0, -0.6 * scale);
+      s.bezierCurveTo(0, -0.35 * scale, 0.5 * scale, -0.15 * scale, 0.5 * scale, 0.2 * scale);
+      s.bezierCurveTo(0.5 * scale, 0.55 * scale, 0, 0.55 * scale, 0, 0.25 * scale);
+      return s;
+    }
 
-    // Three.js WebGL Background
-    (function initThree() {
-      const container = document.getElementById('webgl-universe');
+    function mountScene(containerId, baseZ, setupFn) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const w = container.clientWidth || 340;
+      const h = container.clientHeight || 300;
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-      camera.position.z = 12;
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      const aspect = w / h;
+      const camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
+      camera.position.set(0, 0.4, aspect < 1 ? baseZ * 1.32 : baseZ);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      container.innerHTML = '';
       container.appendChild(renderer.domElement);
 
-      const ring = new THREE.Mesh(
-        new THREE.TorusGeometry(3.2, 0.04, 16, 64),
-        new THREE.MeshBasicMaterial({ color: 0xE9C88B })
-      );
-      scene.add(ring);
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
+      const keyLight = new THREE.DirectionalLight(0xfff4e0, 2.2);
+      keyLight.position.set(5, 8, 6);
+      scene.add(keyLight);
+      const rimLight = new THREE.DirectionalLight(0xff8ebd, 1.5);
+      rimLight.position.set(-5, 4, -4);
+      scene.add(rimLight);
+
+      const updateFn = setupFn(scene, camera, renderer, container);
+
+      const ro = new ResizeObserver(() => {
+        const nw = container.clientWidth;
+        const nh = container.clientHeight;
+        if (!nw || !nh) return;
+        const na = nw / nh;
+        camera.aspect = na;
+        camera.position.z = na < 1 ? baseZ * 1.32 : baseZ;
+        camera.updateProjectionMatrix();
+        renderer.setSize(nw, nh);
+      });
+      ro.observe(container);
+
+      const clock = new THREE.Clock();
       function animate() {
         requestAnimationFrame(animate);
-        ring.rotation.z += 0.004;
-        ring.rotation.y += 0.003;
+        const t = clock.getElapsedTime();
+        if (updateFn) updateFn(t);
         renderer.render(scene, camera);
       }
       animate();
-    })();
+    }
+
+    // --- 4. SCENE 1: PERSISTENT 3D UNIVERSE BACKGROUND ---
+    mountScene('bg-3d-canvas', 11, (scene) => {
+      const moonGroup = new THREE.Group();
+      moonGroup.position.set(-3.4, 2.5, -2);
+      const moonMat = new THREE.MeshStandardMaterial({ color: 0xe9c88b, emissive: 0xe9c88b, emissiveIntensity: 0.35, roughness: 0.25, metalness: 0.8 });
+      moonGroup.add(new THREE.Mesh(new THREE.SphereGeometry(1.15, 32, 32), moonMat));
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(1.75, 0.025, 16, 64), new THREE.MeshBasicMaterial({ color: 0xff8ebd }));
+      ring.rotation.x = 1.1;
+      moonGroup.add(ring);
+      scene.add(moonGroup);
+
+      const starGeo = new THREE.BufferGeometry();
+      const count = 350;
+      const pos = new Float32Array(count * 3);
+      for (let i = 0; i < count * 3; i += 3) {
+        pos[i] = (Math.random() - 0.5) * 28;
+        pos[i + 1] = (Math.random() - 0.5) * 20;
+        pos[i + 2] = -2 - Math.random() * 12;
+      }
+      starGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xe9c88b, size: 0.08 }));
+      scene.add(stars);
+
+      return (t) => {
+        moonGroup.rotation.y = t * 0.25;
+        stars.rotation.y = t * 0.02;
+      };
+    });
+
+    // --- 5. SCENE 2: 11 3D LOVE ENVELOPES ---
+    let activeLetterIdx = 0;
+    const openedLetters = new Set([1]);
+    let envelopeFlaps = [];
+    let envelopeCards = [];
+
+    function selectLetter(idx) {
+      activeLetterIdx = idx;
+      const item = LETTERS[idx];
+      openedLetters.add(item.id);
+      document.getElementById('letters-count-badge').textContent = `الرسائل المفتوحة: ${openedLetters.size} من 11`;
+      document.getElementById('active-letter-tag').textContent = `رسالة رقم ${String(item.id).padStart(2, '0')} / 11`;
+      document.getElementById('active-letter-title').textContent = item.title;
+      document.getElementById('active-letter-body').textContent = `"${item.body}"`;
+      renderLettersButtons();
+    }
+
+    function renderLettersButtons() {
+      const grid = document.getElementById('letters-buttons-grid');
+      grid.innerHTML = '';
+      LETTERS.forEach((l, i) => {
+        const btn = document.createElement('button');
+        const isActive = i === activeLetterIdx;
+        btn.className = `p-3 rounded-xl border text-right transition-all cursor-pointer ${isActive ? 'bg-[#241845] border-[#FF8EBD]' : 'bg-[#090B1C]/80 border-[#E9C88B]/25 hover:border-[#E9C88B]'}`;
+        btn.innerHTML = `<div class="text-[10px] font-mono-num text-[#E9C88B]">LETTER ${String(l.id).padStart(2, '0')}</div><div class="text-xs font-extrabold text-[#F5EAF2] mt-0.5">${l.title}</div>`;
+        btn.addEventListener('click', () => selectLetter(i));
+        grid.appendChild(btn);
+      });
+    }
+    renderLettersButtons();
+
+    mountScene('envelopes-3d-canvas', 9.2, (scene, camera, renderer, container) => {
+      const group = new THREE.Group();
+      scene.add(group);
+      const clickTargets = [];
+      LETTERS.forEach((l, i) => {
+        const row = i < 6 ? 0 : 1;
+        const col = row === 0 ? i : i - 6;
+        const totalInRow = row === 0 ? 6 : 5;
+        const x = (col - (totalInRow - 1) / 2) * 1.55;
+        const y = row === 0 ? 0.85 : -0.95;
+
+        const env = new THREE.Group();
+        env.position.set(x, y, 0);
+        const body = new THREE.Mesh(
+          new THREE.BoxGeometry(1.25, 0.82, 0.08),
+          new THREE.MeshStandardMaterial({ color: 0x261942, roughness: 0.35, metalness: 0.2 })
+        );
+        body.userData = { index: i };
+        clickTargets.push(body);
+        env.add(body);
+
+        const card = new THREE.Mesh(
+          new THREE.BoxGeometry(1.08, 0.7, 0.03),
+          new THREE.MeshStandardMaterial({ color: 0xfff5f9, roughness: 0.3 })
+        );
+        card.position.set(0, 0.1, 0.02);
+        env.add(card);
+        envelopeCards.push(card);
+
+        const flap = new THREE.Mesh(
+          new THREE.ConeGeometry(0.66, 0.45, 4),
+          new THREE.MeshStandardMaterial({ color: 0xe9c88b, roughness: 0.3, metalness: 0.6 })
+        );
+        flap.rotation.z = Math.PI;
+        flap.scale.set(1.3, 1, 0.15);
+        flap.position.set(0, 0.25, 0.05);
+        env.add(flap);
+        envelopeFlaps.push(flap);
+
+        const seal = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.13, 0.13, 0.05, 20),
+          new THREE.MeshStandardMaterial({ color: 0xff477e, roughness: 0.3, metalness: 0.4 })
+        );
+        seal.rotation.x = Math.PI / 2;
+        seal.position.set(0, 0, 0.06);
+        env.add(seal);
+
+        group.add(env);
+      });
+
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      container.addEventListener('pointerdown', (e) => {
+        const r = container.getBoundingClientRect();
+        pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObjects(clickTargets);
+        if (hits.length > 0) selectLetter(hits[0].object.userData.index);
+      });
+
+      return (t) => {
+        envelopeCards.forEach((c, idx) => {
+          const targetY = idx === activeLetterIdx ? 0.42 : 0.05;
+          c.position.y += (targetY - c.position.y) * 0.12;
+        });
+        group.position.y = Math.sin(t * 1.4) * 0.06;
+      };
+    });
+
+    // --- 6. SCENE 3: 5 3D MYSTERY BOXES ---
+    let activeBoxIdx = 0;
+    const openedBoxes = new Set([1]);
+    const boxLids = [];
+
+    function selectBox(idx) {
+      activeBoxIdx = idx;
+      const b = BOXES[idx];
+      openedBoxes.add(b.id);
+      document.getElementById('boxes-count-badge').textContent = `الصناديق المكتشفة: ${openedBoxes.size} من 5`;
+      document.getElementById('active-box-tag').textContent = `${b.en} · ${b.title}`;
+      document.getElementById('active-box-msg').textContent = `"${b.msg}"`;
+      renderBoxesButtons();
+    }
+
+    function renderBoxesButtons() {
+      const grid = document.getElementById('boxes-buttons-grid');
+      grid.innerHTML = '';
+      BOXES.forEach((b, i) => {
+        const btn = document.createElement('button');
+        const isActive = i === activeBoxIdx;
+        btn.className = `p-3.5 rounded-xl border text-right transition-all cursor-pointer ${isActive ? 'bg-[#241845] border-[#FF8EBD]' : 'bg-[#090B1C]/80 border-[#E9C88B]/25 hover:border-[#E9C88B]'}`;
+        btn.innerHTML = `<div class="text-[10px] font-mono-num text-[#E9C88B]">${b.en}</div><div class="text-sm font-extrabold text-[#F5EAF2] mt-0.5">${b.title}</div>`;
+        btn.addEventListener('click', () => selectBox(i));
+        grid.appendChild(btn);
+      });
+    }
+    renderBoxesButtons();
+
+    mountScene('boxes-3d-canvas', 9.5, (scene, camera, renderer, container) => {
+      const clickTargets = [];
+      BOXES.forEach((b, i) => {
+        const x = (i - 2) * 1.85;
+        const g = new THREE.Group();
+        g.position.set(x, -0.2, 0);
+
+        const base = new THREE.Mesh(
+          new THREE.BoxGeometry(1.15, 1.0, 1.15),
+          new THREE.MeshStandardMaterial({ color: b.color, roughness: 0.28, metalness: 0.35 })
+        );
+        base.userData = { index: i };
+        clickTargets.push(base);
+        g.add(base);
+
+        const lid = new THREE.Mesh(
+          new THREE.BoxGeometry(1.24, 0.25, 1.24),
+          new THREE.MeshStandardMaterial({ color: 0xe9c88b, roughness: 0.22, metalness: 0.75 })
+        );
+        lid.position.set(0, 0.62, 0);
+        g.add(lid);
+        boxLids.push(lid);
+        scene.add(g);
+      });
+
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      container.addEventListener('pointerdown', (e) => {
+        const r = container.getBoundingClientRect();
+        pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObjects(clickTargets);
+        if (hits.length > 0) selectBox(hits[0].object.userData.index);
+      });
+
+      return (t) => {
+        boxLids.forEach((lid, i) => {
+          const targetY = i === activeBoxIdx ? 1.15 : 0.62;
+          lid.position.y += (targetY - lid.position.y) * 0.12;
+          lid.rotation.y = t * 0.4;
+        });
+      };
+    });
+
+    // --- 7. SCENE 4: 3D PDF CLASSIFIED FOLDER ---
+    let pdfOpen = false;
+    function togglePdf() {
+      pdfOpen = !pdfOpen;
+      const area = document.getElementById('pdf-content-area');
+      if (pdfOpen) {
+        area.innerHTML = `
+          <div class="p-4 rounded-xl bg-[#17102B] border border-[#FF8EBD]/40 space-y-2">
+            <div class="text-xs font-mono-num text-[#E9C88B]">FILE NAME: OSHA_AND_ME_FOREVER.PDF</div>
+            <h4 class="text-lg font-extrabold text-[#FF8EBD]">أحلى ملف PDF جمعنا سوا 😍😂</h4>
+            <p class="text-sm text-[#F5EAF2]/90 leading-relaxed">
+              تقرير رسمي موثق: لولا ملف الـ PDF ده مكانش زماننا بنحتفل بـ 11:11 النهارده! أكتر ملف تاريخي عمل مصلحة في الكوكب كله ومن يوم 3 أكتوبر 2024 وهو متسجل في المتحف الرسمي بتاعنا يا فثعونتي ❤️😂
+            </p>
+          </div>`;
+      } else {
+        area.innerHTML = `<p class="text-base font-bold text-[#E9C88B]">الملف مقفول بختم السرية 11:11 🔒</p>`;
+      }
+    }
+    document.getElementById('toggle-pdf-btn').addEventListener('click', togglePdf);
+
+    mountScene('pdf-3d-canvas', 5.2, (scene, camera, renderer, container) => {
+      const folder = new THREE.Group();
+      const back = new THREE.Mesh(
+        new THREE.BoxGeometry(2.3, 3.0, 0.12),
+        new THREE.MeshStandardMaterial({ color: 0xe9c88b, roughness: 0.35, metalness: 0.45 })
+      );
+      folder.add(back);
+      const page = new THREE.Mesh(
+        new THREE.BoxGeometry(2.0, 2.7, 0.08),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25 })
+      );
+      page.position.set(0, 0, 0.1);
+      folder.add(page);
+      const stamp = new THREE.Mesh(
+        new THREE.BoxGeometry(1.2, 0.45, 0.04),
+        new THREE.MeshStandardMaterial({ color: 0xff477e, roughness: 0.3 })
+      );
+      stamp.position.set(0, 0.4, 0.16);
+      folder.add(stamp);
+      scene.add(folder);
+      container.addEventListener('pointerdown', togglePdf);
+      return (t) => {
+        folder.rotation.y = Math.sin(t * 0.9) * 0.35 + (pdfOpen ? 0.3 : 0);
+        page.position.y += ((pdfOpen ? 0.35 : 0) - page.position.y) * 0.12;
+      };
+    });
+
+    // --- 8. SCENE 5: 3D 3-TIER BIRTHDAY CAKE WITH GOLD PEARLS & 5 CANDLES ---
+    let candlesLit = true;
+    const flames = [];
+    document.getElementById('blow-candles-btn').addEventListener('click', () => {
+      candlesLit = false;
+      document.getElementById('cake-wish-box').classList.remove('hidden');
+    });
+    document.getElementById('relight-candles-btn').addEventListener('click', () => {
+      candlesLit = true;
+      document.getElementById('cake-wish-box').classList.add('hidden');
+    });
+
+    mountScene('cake-3d-canvas', 6.4, (scene, camera, renderer, container) => {
+      const cake = new THREE.Group();
+      cake.position.y = -0.85;
+
+      // Gold Plate
+      const plate = new THREE.Mesh(
+        new THREE.CylinderGeometry(2.35, 2.5, 0.12, 48),
+        new THREE.MeshStandardMaterial({ color: 0xe9c88b, roughness: 0.2, metalness: 0.85 })
+      );
+      cake.add(plate);
+
+      // Tier 1 (Cream White) + Pink Frosting Ring
+      const t1 = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.9, 1.9, 0.85, 48),
+        new THREE.MeshStandardMaterial({ color: 0xfff8fb, roughness: 0.35 })
+      );
+      t1.position.y = 0.48;
+      cake.add(t1);
+      const ring1 = new THREE.Mesh(
+        new THREE.TorusGeometry(1.88, 0.13, 20, 48),
+        new THREE.MeshStandardMaterial({ color: 0xffb3d1, roughness: 0.25 })
+      );
+      ring1.rotation.x = Math.PI / 2;
+      ring1.position.y = 0.9;
+      cake.add(ring1);
+
+      // Tier 2 (Soft Rose Pink) + Gold Pearls
+      const t2 = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.38, 1.38, 0.78, 48),
+        new THREE.MeshStandardMaterial({ color: 0xffb6d5, roughness: 0.3 })
+      );
+      t2.position.y = 1.28;
+      cake.add(t2);
+
+      const pearlGeo = new THREE.SphereGeometry(0.085, 16, 16);
+      const pearlMat = new THREE.MeshStandardMaterial({ color: 0xe9c88b, roughness: 0.18, metalness: 0.9 });
+      for (let i = 0; i < 16; i++) {
+        const ang = (i / 16) * Math.PI * 2;
+        const p = new THREE.Mesh(pearlGeo, pearlMat);
+        p.position.set(Math.cos(ang) * 1.38, 1.65, Math.sin(ang) * 1.38);
+        cake.add(p);
+      }
+
+      // Tier 3 (Top White Tier + Gold Crown Ring)
+      const t3 = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.92, 0.92, 0.62, 48),
+        new THREE.MeshStandardMaterial({ color: 0xfff8fb, roughness: 0.3 })
+      );
+      t3.position.y = 1.98;
+      cake.add(t3);
+      const ring3 = new THREE.Mesh(
+        new THREE.TorusGeometry(0.92, 0.085, 16, 48),
+        pearlMat
+      );
+      ring3.rotation.x = Math.PI / 2;
+      ring3.position.y = 2.3;
+      cake.add(ring3);
+
+      // 5 Candles + Flickering Golden Flames
+      const candleOffsets = [-0.45, -0.22, 0, 0.22, 0.45];
+      candleOffsets.forEach((cx, idx) => {
+        const cz = (idx % 2 === 0 ? 0.12 : -0.12);
+        const candle = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.055, 0.055, 0.55, 16),
+          new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25 })
+        );
+        candle.position.set(cx, 2.55, cz);
+        cake.add(candle);
+
+        const flame = new THREE.Mesh(
+          new THREE.ConeGeometry(0.08, 0.25, 12),
+          new THREE.MeshStandardMaterial({ color: 0xffd166, emissive: 0xff9f1c, emissiveIntensity: 1.8 })
+        );
+        flame.position.set(cx, 2.95, cz);
+        cake.add(flame);
+        flames.push(flame);
+      });
+
+      scene.add(cake);
+      container.addEventListener('pointerdown', () => {
+        candlesLit = !candlesLit;
+        document.getElementById('cake-wish-box').classList.toggle('hidden', candlesLit);
+      });
+
+      return (t) => {
+        cake.rotation.y = t * 0.35;
+        flames.forEach((f, i) => {
+          f.visible = candlesLit;
+          f.scale.y = 1 + Math.sin(t * 10 + i) * 0.18;
+        });
+      };
+    });
+
+    // --- 9. SCENE 6: 7 3D WISHING STARS ---
+    const chosenStars = new Set();
+    function selectStar(idx) {
+      const s = STARS[idx];
+      chosenStars.add(s.id);
+      document.getElementById('stars-count-badge').textContent = `النجوم المختارة: ${Math.min(chosenStars.size, 3)} / 3`;
+      document.getElementById('active-star-title').textContent = `${s.title} · رسالة النجمة:`;
+      document.getElementById('active-star-msg').textContent = `"${s.msg}"`;
+      if (chosenStars.size >= 3) {
+        document.getElementById('stars-unlocked-secret').classList.remove('hidden');
+      }
+    }
+
+    const starsGrid = document.getElementById('stars-buttons-grid');
+    STARS.forEach((s, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'px-3.5 py-2 rounded-xl bg-[#090B1C] border border-[#E9C88B]/35 hover:border-[#FF8EBD] text-xs font-bold text-[#F5EAF2] cursor-pointer';
+      btn.textContent = `⭐ ${s.title}`;
+      btn.addEventListener('click', () => selectStar(i));
+      starsGrid.appendChild(btn);
+    });
+
+    mountScene('stars-3d-canvas', 6.8, (scene, camera, renderer, container) => {
+      const starMeshes = [];
+      STARS.forEach((s, i) => {
+        const mesh = new THREE.Mesh(
+          new THREE.OctahedronGeometry(0.36, 0),
+          new THREE.MeshStandardMaterial({ color: 0xe9c88b, emissive: 0xff8ebd, emissiveIntensity: 0.45, roughness: 0.2, metalness: 0.85 })
+        );
+        mesh.position.set(s.pos[0], s.pos[1], s.pos[2]);
+        mesh.userData = { index: i };
+        scene.add(mesh);
+        starMeshes.push(mesh);
+      });
+
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      container.addEventListener('pointerdown', (e) => {
+        const r = container.getBoundingClientRect();
+        pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObjects(starMeshes);
+        if (hits.length > 0) selectStar(hits[0].object.userData.index);
+      });
+
+      return (t) => {
+        starMeshes.forEach((m, i) => {
+          m.rotation.y = t + i;
+          m.rotation.x = t * 0.5;
+        });
+      };
+    });
+
+    // --- 10. SCENE 7: 3D UNFOLDING MYSTERY GIFT ---
+    let giftOpen = false;
+    function toggleGift() {
+      giftOpen = !giftOpen;
+      document.getElementById('gift-secret-msg').classList.toggle('hidden', !giftOpen);
+    }
+    document.getElementById('toggle-gift-btn').addEventListener('click', toggleGift);
+
+    mountScene('gift-3d-canvas', 5.2, (scene, camera, renderer, container) => {
+      const gift = new THREE.Group();
+      const box = new THREE.Mesh(
+        new THREE.BoxGeometry(1.7, 1.4, 1.7),
+        new THREE.MeshStandardMaterial({ color: 0x241845, roughness: 0.3, metalness: 0.4 })
+      );
+      box.position.y = -0.3;
+      gift.add(box);
+
+      const lid = new THREE.Mesh(
+        new THREE.BoxGeometry(1.82, 0.32, 1.82),
+        new THREE.MeshStandardMaterial({ color: 0xe9c88b, roughness: 0.2, metalness: 0.85 })
+      );
+      lid.position.y = 0.55;
+      gift.add(lid);
+
+      const heartGeo = new THREE.ExtrudeGeometry(createHeartShape(0.85), { depth: 0.22, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.05 });
+      const heart = new THREE.Mesh(
+        heartGeo,
+        new THREE.MeshStandardMaterial({ color: 0xff8ebd, emissive: 0xff477e, emissiveIntensity: 0.5, roughness: 0.2, metalness: 0.5 })
+      );
+      heart.position.set(0, 0.1, 0);
+      gift.add(heart);
+
+      scene.add(gift);
+      container.addEventListener('pointerdown', toggleGift);
+
+      return (t) => {
+        gift.rotation.y = t * 0.45;
+        lid.position.y += ((giftOpen ? 1.45 : 0.55) - lid.position.y) * 0.1;
+        heart.position.y += ((giftOpen ? 0.95 : 0.0) - heart.position.y) * 0.1;
+        heart.rotation.y = t * 1.5;
+      };
+    });
   </script>
 </body>
 </html>
