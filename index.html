@@ -21,7 +21,7 @@
     }
   </script>
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; font-family: 'Cairo', 'Tajawal', sans-serif; background: #090B1C; color: #F5EAF2; }
     body { background: #090B1C; color: #F5EAF2; overflow-x: hidden; margin: 0; }
     .font-mono-num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
@@ -48,10 +48,10 @@
         11:11
       </div>
       <div class="space-y-3 min-h-[5.5rem] flex flex-col justify-center">
-        <p id="intro-line-1" class="text-xl sm:text-2xl font-bold text-[#F5EAF2] transition-all duration-500">
+        <p class="text-xl sm:text-2xl font-bold text-[#F5EAF2]">
           إيه يا أوشا... مستعدة للمفاجأة؟ 😂❤️
         </p>
-        <p id="intro-line-2" class="text-base sm:text-lg text-[#E9C88B] font-medium transition-all duration-500">
+        <p class="text-base sm:text-lg text-[#E9C88B] font-medium">
           المرة دي مش مجرد رسالة وخلاص.
         </p>
       </div>
@@ -61,8 +61,8 @@
     </div>
   </div>
 
-  <!-- Sticky Navigation -->
-  <header class="sticky top-0 z-40 bg-[#090B1C]/85 backdrop-blur-md border-b border-[#E9C88B]/20">
+  <!-- Sticky Navigation with 3-Lines Side Drawer Button (☰) -->
+  <header class="sticky top-0 z-40 bg-[#090B1C]/90 backdrop-blur-md border-b border-[#E9C88B]/20">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
       <a href="#hero" class="flex items-center gap-2 text-base sm:text-lg font-extrabold text-[#E9C88B]">
         <span>❤️</span>
@@ -81,11 +81,264 @@
         <span id="nav-hearts-badge" class="px-3 py-1.5 rounded-xl bg-[#17102B] border border-[#FF8EBD]/40 text-xs font-bold text-[#FF8EBD]">
           ❤️ القلوب: 0 / 5
         </span>
+        <!-- 3-Lines Hamburger Button (☰) to open the 6 New Interactive Sections -->
+        <button id="open-drawer-btn" aria-label="فتح قائمة أقسام أوشا الإضافية" class="px-3 py-2 rounded-xl bg-[#17102B] border border-[#E9C88B]/50 hover:border-[#FF8EBD] text-[#E9C88B] font-extrabold text-base flex items-center gap-1.5 cursor-pointer shadow-md">
+          <span>☰</span>
+          <span class="text-xs hidden sm:inline">الأقسام الإضافية</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
+  <!-- SIDE DRAWER HUB (Opened via ☰ button — Contains the 6 New Interactive Sections) -->
+  <div id="side-drawer-overlay" class="fixed inset-0 z-50 hidden bg-[#090B1C]/80 backdrop-blur-sm">
+    <div id="side-drawer-backdrop" class="fixed inset-0"></div>
+    <div class="relative z-10 w-full max-w-xl bg-[#120D24] border-l border-[#E9C88B]/35 h-full overflow-y-auto p-5 sm:p-7 flex flex-col justify-between shadow-2xl mr-auto lg:mr-0">
+      <div class="space-y-5">
+        <!-- Drawer Top Header -->
+        <div class="flex items-center justify-between border-b border-[#E9C88B]/20 pb-4">
+          <div class="flex items-center gap-2.5">
+            <button id="drawer-back-btn" class="hidden px-3 py-1.5 rounded-xl bg-[#090B1C] border border-[#E9C88B]/35 text-[#E9C88B] text-xs font-bold cursor-pointer">
+              ➔ رجوع للقائمة
+            </button>
+            <div>
+              <h2 id="drawer-title" class="text-lg sm:text-xl font-extrabold text-[#F5EAF2]">
+                ✨ أقسام ومفاجآت أوشا الإضافية
+              </h2>
+              <p id="drawer-subtitle" class="text-xs text-[#F5EAF2]/70">
+                اختاري أي قسم من القائمة عشان تفتحيه فورًا
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="toggle-sound-btn" class="px-3 py-2 rounded-xl bg-[#090B1C] border border-[#E9C88B]/30 text-xs font-bold text-[#E9C88B] cursor-pointer">
+              🔊 الصوت
+            </button>
+            <button id="close-drawer-btn" class="px-3 py-2 rounded-xl bg-[#090B1C] border border-[#F5EAF2]/20 text-xs font-bold text-[#F5EAF2] hover:text-[#FF8EBD] cursor-pointer">
+              ✕ إغلاق
+            </button>
+          </div>
+        </div>
+
+        <!-- DRAWER VIEW 0: MENU LIST OF 6 SECTIONS -->
+        <div id="drawer-view-menu" class="space-y-3">
+          <p class="text-xs font-bold text-[#E9C88B]">الأقسام التفاعلية الجديدة المخصصة لـ أوشا (6 أقسام):</p>
+          <button data-target="wheel" class="drawer-nav-item w-full p-4 rounded-2xl bg-[#090B1C]/90 hover:bg-[#1E1438] border border-[#E9C88B]/30 hover:border-[#FF8EBD] text-right flex items-center justify-between gap-3 transition-all cursor-pointer">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl w-11 h-11 rounded-xl bg-[#17102B] border border-[#E9C88B]/25 flex items-center justify-center">🎡</span>
+              <div>
+                <div class="text-sm sm:text-base font-extrabold text-[#F5EAF2]">عجلة الدلع والأحكام</div>
+                <div class="text-xs text-[#F5EAF2]/70">لفي العجلة وشوفي حظك وحكم الدلع النهاردة</div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#E9C88B]">افتحي ⟵</span>
+          </button>
+
+          <button data-target="minigame" class="drawer-nav-item w-full p-4 rounded-2xl bg-[#090B1C]/90 hover:bg-[#1E1438] border border-[#E9C88B]/30 hover:border-[#FF8EBD] text-right flex items-center justify-between gap-3 transition-all cursor-pointer">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl w-11 h-11 rounded-xl bg-[#17102B] border border-[#E9C88B]/25 flex items-center justify-center">🕹️</span>
+              <div>
+                <div class="text-sm sm:text-base font-extrabold text-[#F5EAF2]">لعبة صيد القلوب السريعة (Mini Game)</div>
+                <div class="text-xs text-[#F5EAF2]/70">اجمعي القلوب والنجوم والتيجان واهربي من الغيوم</div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#E9C88B]">افتحي ⟵</span>
+          </button>
+
+          <button data-target="jar" class="drawer-nav-item w-full p-4 rounded-2xl bg-[#090B1C]/90 hover:bg-[#1E1438] border border-[#E9C88B]/30 hover:border-[#FF8EBD] text-right flex items-center justify-between gap-3 transition-all cursor-pointer">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl w-11 h-11 rounded-xl bg-[#17102B] border border-[#E9C88B]/25 flex items-center justify-center">🍯</span>
+              <div>
+                <div class="text-sm sm:text-base font-extrabold text-[#F5EAF2]">برطمان "ليه بحبك؟" (20 سبب)</div>
+                <div class="text-xs text-[#F5EAF2]/70">اسحبي كارت جديد في كل مرة بـ 20 سبب واقعي وجميل</div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#E9C88B]">افتحي ⟵</span>
+          </button>
+
+          <button data-target="passport" class="drawer-nav-item w-full p-4 rounded-2xl bg-[#090B1C]/90 hover:bg-[#1E1438] border border-[#E9C88B]/30 hover:border-[#FF8EBD] text-right flex items-center justify-between gap-3 transition-all cursor-pointer">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl w-11 h-11 rounded-xl bg-[#17102B] border border-[#E9C88B]/25 flex items-center justify-center">🪐</span>
+              <div>
+                <div class="text-sm sm:text-base font-extrabold text-[#F5EAF2]">جواز سفر كوكب أوشا</div>
+                <div class="text-xs text-[#F5EAF2]/70">وثيقة دبلوماسية خاصة بـ آيوش قابلة للتحميل كصورة</div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#E9C88B]">افتحي ⟵</span>
+          </button>
+
+          <button data-target="certificate" class="drawer-nav-item w-full p-4 rounded-2xl bg-[#090B1C]/90 hover:bg-[#1E1438] border border-[#E9C88B]/30 hover:border-[#FF8EBD] text-right flex items-center justify-between gap-3 transition-all cursor-pointer">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl w-11 h-11 rounded-xl bg-[#17102B] border border-[#E9C88B]/25 flex items-center justify-center">📜</span>
+              <div>
+                <div class="text-sm sm:text-base font-extrabold text-[#F5EAF2]">الشهادة الرسمية الموثقة</div>
+                <div class="text-xs text-[#F5EAF2]/70">شهادة تقدير ملكية بختم 11:11 قابلة للتحميل كصورة</div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#E9C88B]">افتحي ⟵</span>
+          </button>
+
+          <button data-target="mood" class="drawer-nav-item w-full p-4 rounded-2xl bg-[#090B1C]/90 hover:bg-[#1E1438] border border-[#E9C88B]/30 hover:border-[#FF8EBD] text-right flex items-center justify-between gap-3 transition-all cursor-pointer">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl w-11 h-11 rounded-xl bg-[#17102B] border border-[#E9C88B]/25 flex items-center justify-center">🎭</span>
+              <div>
+                <div class="text-sm sm:text-base font-extrabold text-[#F5EAF2]">محدد مود أوشا النهاردة (Mood Selector)</div>
+                <div class="text-xs text-[#F5EAF2]/70">اختاري مودك الحالي وشوفي الروشتة الخاصة بيكي</div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#E9C88B]">افتحي ⟵</span>
+          </button>
+        </div>
+
+        <!-- DRAWER VIEW 1: WHEEL OF PAMPERING -->
+        <div id="drawer-view-wheel" class="drawer-subview hidden space-y-5 text-center">
+          <p class="text-xs sm:text-sm text-[#F5EAF2]/85 bg-[#090B1C] border border-[#E9C88B]/30 rounded-2xl p-3.5">
+            اضغطي على زر "لفي العجلة يا أوشا" وشوفي الحكم أو الدلع اللي هيطلعلك النهاردة! 🎡
+          </p>
+          <div class="relative w-64 h-64 mx-auto flex items-center justify-center">
+            <div class="absolute -top-3 z-20 text-2xl">🔻</div>
+            <div id="wheel-disc" class="w-full h-full rounded-full border-4 border-[#E9C88B] shadow-[0_0_35px_rgba(255,142,189,0.3)] transition-transform duration-[2600ms] ease-out" style="background: conic-gradient(#FF8EBD 0deg 45deg, #17102B 45deg 90deg, #E9C88B 90deg 135deg, #241845 135deg 180deg, #FF6B9D 180deg 225deg, #17102B 225deg 270deg, #E9C88B 270deg 315deg, #241845 315deg 360deg);"></div>
+            <div class="absolute w-14 h-14 rounded-full bg-[#090B1C] border-2 border-[#E9C88B] flex items-center justify-center font-extrabold text-xs text-[#E9C88B]">11:11</div>
+          </div>
+          <button id="spin-wheel-btn" class="px-8 py-3.5 rounded-2xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] via-[#FF8EBD] to-[#E9C88B] cursor-pointer">
+            لفي العجلة يا أوشا 🎡
+          </button>
+          <div id="wheel-result-box" class="hidden p-4 rounded-2xl bg-[#090B1C] border border-[#FF8EBD] text-right space-y-1">
+            <div id="wheel-result-title" class="text-xs font-bold text-[#E9C88B]"></div>
+            <p id="wheel-result-desc" class="text-sm sm:text-base font-extrabold text-[#F5EAF2]"></p>
+          </div>
+        </div>
+
+        <!-- DRAWER VIEW 2: MINI GAME (NO PDF) -->
+        <div id="drawer-view-minigame" class="drawer-subview hidden space-y-4 text-center">
+          <div class="p-3.5 rounded-2xl bg-[#090B1C] border border-[#E9C88B]/30 flex items-center justify-between text-xs">
+            <span class="font-bold text-[#E9C88B]">🕹️ صيد القلوب والنجوم والتيجان</span>
+            <span id="minigame-hud" class="font-mono-num text-[#FF8EBD] font-bold">النقاط: 0 | الوقت: 25ث</span>
+          </div>
+          <p class="text-xs text-[#F5EAF2]/80">حركي السلة بصباعك أو بالماوس عشان تجمعي القلوب (❤️ +10) والنجوم (⭐ +15) والتيجان (👑 +25) وتفادي الغيوم (⛈️)!</p>
+          <div class="relative mx-auto w-full max-w-[320px] rounded-2xl overflow-hidden border border-[#E9C88B]/40 bg-[#090B1C]">
+            <canvas id="minigame-canvas" width="320" height="310" class="w-full h-[310px] touch-none cursor-pointer"></canvas>
+            <div id="minigame-overlay" class="absolute inset-0 bg-[#090B1C]/90 flex flex-col items-center justify-center p-5 space-y-3">
+              <div class="text-4xl">👑❤️</div>
+              <h4 id="minigame-status-title" class="text-base font-extrabold text-[#F5EAF2]">جاهزة لتحدي صيد القلوب والتيجان يا أوشا؟</h4>
+              <p id="minigame-status-sub" class="text-xs text-[#E9C88B]"></p>
+              <button id="start-minigame-btn" class="px-6 py-3 rounded-xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] cursor-pointer">
+                ابدئي اللعبة الآن 🚀
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DRAWER VIEW 3: JAR OF 20 REASONS -->
+        <div id="drawer-view-jar" class="drawer-subview hidden space-y-5 text-center">
+          <div class="p-3.5 rounded-2xl bg-[#090B1C] border border-[#E9C88B]/30 flex items-center justify-between">
+            <span class="text-xs font-extrabold text-[#E9C88B]">🍯 برطمان "ليه بحبك؟" (20 سبب واقعي)</span>
+            <span id="jar-counter-badge" class="px-3 py-1 rounded-lg bg-[#17102B] border border-[#FF8EBD]/40 text-xs font-bold text-[#FF8EBD]">0 / 20</span>
+          </div>
+          <div id="jar-visual-box" class="mx-auto w-44 h-52 rounded-b-[2.3rem] rounded-t-2xl bg-gradient-to-b from-[#1E1438] via-[#17102B] to-[#2A194D] border-2 border-[#E9C88B]/60 shadow-[0_0_35px_rgba(255,142,189,0.25)] flex flex-col items-center justify-between p-4 cursor-pointer hover:scale-[1.02] transition-transform">
+            <div class="w-28 h-4 -mt-5 rounded bg-[#E9C88B]"></div>
+            <div class="px-3 py-1 rounded-lg bg-[#090B1C]/90 border border-[#E9C88B]/40 text-[11px] font-extrabold text-[#E9C88B]">برطمان سعادة أوشا ❤️</div>
+            <div class="text-2xl">💊💖✨💊🌟</div>
+            <span class="text-[11px] text-[#FF8EBD] font-bold">اضغطي لسحب كارت جديد ✨</span>
+          </div>
+          <button id="draw-jar-btn" class="px-7 py-3.5 rounded-2xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] cursor-pointer">
+            اسحبي سبب جديد من البرطمان 💌
+          </button>
+          <div class="p-5 rounded-2xl bg-[#090B1C] border border-[#FF8EBD]/45 text-right space-y-1.5">
+            <div id="jar-reason-num" class="text-xs font-mono-num text-[#E9C88B]">اضغطي على الزر فوق لسحب أول كارت</div>
+            <p id="jar-reason-text" class="text-base font-extrabold text-[#F5EAF2] leading-relaxed">
+              "كل كارت من الـ 20 مكتوب فيه سبب حقيقي وواقعي من القلب لـ آيوش ❤️"
+            </p>
+          </div>
+        </div>
+
+        <!-- DRAWER VIEW 4: PASSPORT TO AYOOSH'S GALAXY -->
+        <div id="drawer-view-passport" class="drawer-subview hidden space-y-4">
+          <div class="rounded-3xl bg-gradient-to-br from-[#17102B] via-[#090B1C] to-[#24143D] border-2 border-[#E9C88B]/60 p-5 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-[#E9C88B]/25 pb-2.5 text-xs font-mono-num text-[#E9C88B]">
+              <span>🪐 GALACTIC PASSPORT · 11:11</span>
+              <span class="px-2 py-0.5 rounded bg-[#E9C88B] text-[#090B1C] font-extrabold text-[10px]">VIP DIPLOMAT</span>
+            </div>
+            <div class="space-y-2 text-xs sm:text-sm">
+              <div class="flex justify-between border-b border-[#F5EAF2]/10 pb-1.5">
+                <span class="text-[#F5EAF2]/65">الاسم الرسمي:</span>
+                <span class="font-extrabold text-[#F5EAF2]">آيوش (أوشا) ❤️</span>
+              </div>
+              <div class="flex justify-between border-b border-[#F5EAF2]/10 pb-1.5">
+                <span class="text-[#F5EAF2]/65">الألقاب المعتمدة:</span>
+                <span class="font-extrabold text-[#FF8EBD]">فثعونتي · بنوتة بابي</span>
+              </div>
+              <div class="flex justify-between border-b border-[#F5EAF2]/10 pb-1.5">
+                <span class="text-[#F5EAF2]/65">تاريخ الميلاد:</span>
+                <span class="font-mono-num font-bold text-[#E9C88B]">01.01.2008</span>
+              </div>
+              <div class="flex justify-between border-b border-[#F5EAF2]/10 pb-1.5">
+                <span class="text-[#F5EAF2]/65">بداية الحكاية:</span>
+                <span class="font-mono-num font-bold text-[#E9C88B]">03.10.2024</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#F5EAF2]/65">الصلاحية:</span>
+                <span class="font-extrabold text-[#E9C88B]">مدى الحياة بلا حدود ♾️</span>
+              </div>
+            </div>
+            <div class="p-3 rounded-xl bg-[#090B1C] border border-[#FF8EBD]/50 text-xs font-extrabold text-[#FF8EBD] flex justify-between">
+              <span>💮 ختم الدخول الملكي: صاحبة المكانة الأولى</span>
+              <span class="font-mono-num text-[#E9C88B]">APPROVED 11:11</span>
+            </div>
+          </div>
+          <button id="download-passport-btn" class="w-full py-3.5 rounded-xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] cursor-pointer">
+            تحميل جواز السفر كصورة PNG 📸
+          </button>
+        </div>
+
+        <!-- DRAWER VIEW 5: OFFICIAL CERTIFICATE -->
+        <div id="drawer-view-certificate" class="drawer-subview hidden space-y-4">
+          <div class="rounded-3xl bg-gradient-to-b from-[#17102B] to-[#090B1C] border-2 border-[#E9C88B] p-6 text-center space-y-3.5 shadow-2xl">
+            <div class="text-xs font-mono-num text-[#E9C88B]">📜 ROYAL 11:11 ACADEMY · OFFICIAL DECREE</div>
+            <h3 class="text-2xl font-extrabold text-[#F5EAF2]">شهادة تقدير ودلع رسمية موثقة</h3>
+            <p class="text-xs text-[#E9C88B]">تشهد هيئة 11:11 العليا وبكامل قواها القلبية أن الآنسة:</p>
+            <div class="py-2 px-4 rounded-2xl bg-[#090B1C] border border-[#FF8EBD]/45 text-lg sm:text-xl font-extrabold text-[#FF8EBD]">
+              آيوش (أوشا) — فثعونتي وبنوتة بابي ❤️
+            </div>
+            <p class="text-xs sm:text-sm text-[#F5EAF2]/90 leading-relaxed">
+              قد حصلت رسميًا وبإجماع الآراء على لقب <strong>"أحلى وأجمل وأطيب بنوتة في حياتي"</strong>، مع كامل الصلاحيات في الدلع والعناد اللطيف وكسب أي نقاش من يوم <strong>03 أكتوبر 2024</strong> وإلى الأبد.
+            </p>
+            <div class="pt-2 border-t border-[#E9C88B]/20 flex items-center justify-between text-xs text-[#E9C88B]">
+              <span>إصدار: 11:11 · 01.01.2008</span>
+              <span class="px-3 py-1 rounded-full bg-[#FF477E] text-[#F5EAF2] font-extrabold">ختم الشمع الملكي</span>
+            </div>
+          </div>
+          <button id="download-cert-btn" class="w-full py-3.5 rounded-xl font-extrabold text-sm text-[#090B1C] bg-gradient-to-r from-[#E9C88B] to-[#FF8EBD] cursor-pointer">
+            حفظ الشهادة الرسمية كصورة على الموبايل 📸
+          </button>
+        </div>
+
+        <!-- DRAWER VIEW 6: OSHA'S MOOD SELECTOR -->
+        <div id="drawer-view-mood" class="drawer-subview hidden space-y-4">
+          <p class="text-xs text-[#F5EAF2]/80 bg-[#090B1C] border border-[#E9C88B]/30 p-3.5 rounded-2xl">
+            اختاري مودك دلوقتي يا أوشا وشوفي الرسالة والروشتة المخصصة للمود ده فورًا: 🎭
+          </p>
+          <div id="mood-buttons-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
+          <div class="p-5 rounded-2xl bg-[#090B1C] border border-[#FF8EBD]/45 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span id="mood-badge" class="px-2.5 py-1 rounded bg-[#17102B] text-[#E9C88B] text-xs font-bold">أحلى مود في الكون</span>
+              <span id="mood-emoji" class="text-2xl">😍</span>
+            </div>
+            <p id="mood-prescription" class="text-sm sm:text-base font-extrabold text-[#F5EAF2] leading-relaxed">
+              "يا رب دايمًا مبسوطة وضحكتك منورة الدنيا يا أوشا! الضحكة دي بالدنيا كلها عندي وممنوع تختفي أبدًا ❤️✨"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 mt-6 border-t border-[#E9C88B]/20 flex items-center justify-between text-xs text-[#F5EAF2]/70">
+        <span>صُنع بحب لـ آيوش (أوشا) ❤️</span>
+        <span class="font-mono-num">11:11 UNIVERSE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content (Original Sections Untouched) -->
   <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 space-y-24 py-10">
 
     <!-- 01. HERO SECTION -->
@@ -152,13 +405,13 @@
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="glass-card rounded-2xl p-5 text-center space-y-1">
           <p class="text-xs text-[#F5EAF2]/70">إجمالي الأيام من 3 أكتوبر 2024</p>
-          <div id="cnt-days" class="text-3xl sm:text-4xl font-extrabold font-mono-num text-[#E9C88B]">769</div>
+          <div id="cnt-days" class="text-3xl sm:text-4xl font-extrabold font-mono-num text-[#E9C88B]">770</div>
           <p class="text-[11px] text-[#FF8EBD]">يوم من الكلام والضحك</p>
         </div>
         <div class="glass-card rounded-2xl p-5 text-center space-y-1">
           <p class="text-xs text-[#F5EAF2]/70">إجمالي الشهور</p>
           <div id="cnt-months" class="text-3xl sm:text-4xl font-extrabold font-mono-num text-[#FF8EBD]">25</div>
-          <p id="cnt-breakdown" class="text-[11px] text-[#F5EAF2]/75">تفاصيل مبتخلصش</p>
+          <p class="text-[11px] text-[#F5EAF2]/75">تفاصيل مبتخلصش</p>
         </div>
         <div class="glass-card rounded-2xl p-5 text-center space-y-1">
           <p class="text-xs text-[#F5EAF2]/70">السنين المكتملة</p>
@@ -167,7 +420,7 @@
         </div>
         <div class="glass-card rounded-2xl p-5 text-center space-y-1">
           <p class="text-xs text-[#F5EAF2]/70">الثواني لحظة بلحظة</p>
-          <div id="cnt-seconds" class="text-2xl sm:text-3xl font-extrabold font-mono-num text-[#F5EAF2]">66,513,000</div>
+          <div id="cnt-seconds" class="text-2xl sm:text-3xl font-extrabold font-mono-num text-[#F5EAF2]">66,599,000</div>
           <p id="cnt-clock" class="text-[11px] font-mono-num text-[#E9C88B]">+00:00:00 اليوم</p>
         </div>
       </div>
@@ -323,7 +576,6 @@
 
     <!-- 07. 3D WISHING STARS & GAMES -->
     <section id="secret-games" class="space-y-10 scroll-mt-20">
-      <!-- Wishing Stars 3D -->
       <div class="glass-card rounded-2xl p-5 sm:p-7 space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -345,7 +597,6 @@
         </div>
       </div>
 
-      <!-- Quiz & Scratch Card -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="glass-card rounded-2xl p-5 sm:p-6 space-y-4">
           <h3 class="text-xl font-extrabold text-[#F5EAF2]">اختبار أوشا السريع 😂❤️</h3>
@@ -378,7 +629,7 @@
             ✨ اضغطي هنا لمسح الطبقة الذهبية وكشف الرسالة السرية ✨
           </div>
           <div class="p-4 rounded-xl bg-[#090B1C] border border-[#E9C88B]/30 font-mono-num text-xs text-[#E9C88B] space-y-1" dir="ltr">
-            <div>&gt;TARGET: "Ayoosh (أوشا)"</div>
+            <div>&gt; TARGET: "Ayoosh (أوشا)"</div>
             <div>&gt; FIRST_CHAT: "2024-10-03"</div>
             <div>&gt; INSIDE_JOKE: "أحلى ملف PDF جمعنا سوا 😍😂"</div>
             <div class="text-[#FF8EBD]">&gt; STATUS: "Loved infinitely at 11:11 ❤️"</div>
@@ -433,10 +684,76 @@
     صُنع بكل حب وتفاصيل خاصة لـ آيوش (أوشا) ❤️ — 11:11 · 03.10.2024 · 01.01.2008
   </footer>
 
-  <!-- Full Three.js 3D Engine & Interactive Logic -->
+  <!-- Full Three.js 3D Engine + Web Audio Synthesizer + Side Drawer Logic -->
   <script type="module">
     import * as THREE from 'three';
     import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    // --- 0. ZERO-LAG WEB AUDIO SYNTHESIZER ---
+    let audioCtx = null;
+    let soundMuted = false;
+
+    function playSound(type) {
+      if (soundMuted) return;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        if (!audioCtx) audioCtx = new Ctx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const tone = (freq, dur, offset = 0, wave = 'sine', vol = 0.11) => {
+          const now = audioCtx.currentTime + offset;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = wave;
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(vol, now + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + dur + 0.02);
+        };
+
+        if (type === 'envelope') {
+          tone(523.25, 0.22, 0, 'triangle', 0.11);
+          tone(659.25, 0.24, 0.06, 'triangle', 0.11);
+          tone(783.99, 0.28, 0.12, 'triangle', 0.12);
+          tone(1046.5, 0.36, 0.18, 'sine', 0.13);
+        } else if (type === 'box') {
+          tone(587.33, 0.24, 0, 'sine', 0.11);
+          tone(739.99, 0.26, 0.07, 'sine', 0.11);
+          tone(880.0, 0.3, 0.14, 'triangle', 0.12);
+          tone(1174.66, 0.4, 0.21, 'sine', 0.13);
+        } else if (type === 'pdf') {
+          tone(330.0, 0.12, 0, 'triangle', 0.12);
+          tone(440.0, 0.15, 0.06, 'triangle', 0.12);
+          tone(659.25, 0.3, 0.13, 'sine', 0.13);
+        } else if (type === 'star') {
+          tone(783.99, 0.2, 0, 'sine', 0.1);
+          tone(1174.66, 0.25, 0.05, 'sine', 0.11);
+          tone(1567.98, 0.38, 0.11, 'sine', 0.12);
+        } else if (type === 'heart') {
+          tone(698.46, 0.16, 0, 'sine', 0.12);
+          tone(1046.5, 0.32, 0.08, 'sine', 0.14);
+        } else if (type === 'tick') {
+          tone(720, 0.04, 0, 'triangle', 0.07);
+        } else if (type === 'jar') {
+          tone(493.88, 0.12, 0, 'sine', 0.11);
+          tone(739.99, 0.22, 0.05, 'triangle', 0.12);
+          tone(987.77, 0.34, 0.11, 'sine', 0.13);
+        } else if (type === 'win') {
+          tone(523.25, 0.2, 0, 'triangle', 0.12);
+          tone(659.25, 0.2, 0.08, 'triangle', 0.12);
+          tone(783.99, 0.22, 0.16, 'triangle', 0.12);
+          tone(1046.5, 0.45, 0.24, 'sine', 0.15);
+        } else {
+          tone(587.33, 0.08, 0, 'sine', 0.08);
+          tone(880, 0.1, 0.03, 'sine', 0.05);
+        }
+      } catch {}
+    }
 
     // --- 1. DATA ---
     const LETTERS = [
@@ -471,9 +788,275 @@
       { id: 7, title: 'نجمة 11:11', msg: 'Happy 11:11 يا أحلى وأجمل بنوتة في حياتي ✨', pos: [3.4, 0.9, 0.1] }
     ];
 
-    // --- 2. UI & COUNTER ---
+    const WHEEL_ITEMS = [
+      { label: 'طلب أكلة حلوة 🍰', detail: 'حكم رسمي لـ أوشا: ليكي طلب أكلة بتحبيها أو حلوى على ذوقك يتنفذ من غير نقاش! ❤️' },
+      { label: 'إنتي صح دايمًا 👑', detail: 'كارت حصانة ملكي: في أي نقاش النهاردة، رأي أوشا هو الصح رسميًا حتى لو عكس قوانين الفيزياء 😂👑' },
+      { label: 'رسالة دلع فورية 💌', detail: 'حكم الدلع: ليكي رسالة طويلة دلوقتي حالًا فيها كل كلام الدلع لـ أحلى فثعونتي في الكون ✨' },
+      { label: 'اختيار سهرة أو فيلم 🎬', detail: 'أوشا هي المخرج النهاردة: تختاري الفيلم أو الموضوع اللي نتكلم فيه والطرف التاني يوافق فورًا 🍿' },
+      { label: 'عزومة آيس كريم 🍦', detail: 'مكافأة لـ بنوتة بابي: عزومة على آيس كريم أو مشروبك المفضل في أقرب وقت ❤️' },
+      { label: 'سؤال صراحة حر ✨', detail: 'ليكي تسألي أي سؤال يخطر في بالك ولازم يتجاوب عليه بصراحة كاملة 100% 😂' },
+      { label: 'تاج الدلع كله 💖', detail: 'حكم VIP: دلع مضاعف النهاردة وممنوع أي حد يزعل آيوش لأي سبب من الأسباب 👑❤️' },
+      { label: 'أمنية خاصة ليكي 🎁', detail: 'جوكر 11:11 الذهبي: اطلبي أي طلب خفيف يخطر على بالك وهيتنفذ عشان عيونك يا أوشا ✨' }
+    ];
+
+    const TWENTY_REASONS = [
+      'عشان ضحكتك بتفصلني عن أي تعب في اليوم وبتغير مودي في ثانية.',
+      'عشان طريقتك العفوية في الكلام من غير تصنع ولا تكلف.',
+      'عشان حتى وإنتي معاندة ومصممة على رأيك بيبقى شكلك وطريقتك عسل 😂❤️',
+      'عشان حنيتك اللي بتبان في أصغر التفاصيل وفي سؤالك عليا.',
+      'عشان إنتي أول حد بيجي في بالي لما تحصل حاجة حلوة وأكون عايز أحكيها.',
+      'عشان طيبة قلبك اللي مفيش زيها ونضافتك من جوه.',
+      'عشان بتفهميني من نبرة كلامي ومن غير ما أتكلم كتير.',
+      'عشان وجودك في يومي بيخلي اليوم أهون وأحلى بكتير.',
+      'عشان كلامنا العشوائي اللي بيبدأ في موضوع ويخلص في عشر مواضيع تانية 😂',
+      'عشان دلعك اللطيف اللي لايق عليكي لوحدك يا فثعونتي.',
+      'عشان بتهتمي بالحاجات الصغيرة اللي بحبها وبتفتكريها دايمًا.',
+      'عشان راحتي النفسية اللي بحسها أول ما نبدأ نتكلم سوا.',
+      'عشان لما بتزعلي بترضي بكلمة حلوة وقلبك أبيض مبيعرفش يشيل.',
+      'عشان نظرتك للحاجات وروحك الخفيفة اللي بتحلي أي موقف.',
+      'عشان من يوم 3 أكتوبر 2024 وإنتي فارقة في حياتي بجد مش مجرد كلام.',
+      'عشان خوفك عليا واهتمامك بتفاصيلي كأني أهم حاجة في يومك.',
+      'عشان بتخليني عايز أكون أحسن وعشان وجودك بيديني طاقة حلوة.',
+      'عشان طريقتك المميزة في الزعل والدلع والصلح في نفس الدقيقة 😂❤️',
+      'عشان مفيش حد شبهك في طباعك ولا في خفة دمك يا بنوتة بابي.',
+      'عشان ببساطة إنتي آيوش... أحلى وأجمل بنوتة في حياتي كلها ❤️'
+    ];
+
+    const MOODS = [
+      { emoji: '😍', title: 'مبسوطة ومفرفشة', badge: 'أحلى مود في الكون', text: 'يا رب دايمًا مبسوطة وضحكتك منورة الدنيا يا أوشا! الضحكة دي بالدنيا كلها عندي وممنوع تختفي أبدًا ❤️✨' },
+      { emoji: '😤', title: 'معاندة ومصممة', badge: 'طوارئ عناد فثعونتي', text: 'قاعدة رقم 1 في الدستور: لما أوشا تعاند، يبقى أوشا معاها حق فورًا ومن غير مراجعة 😂❤️ خلاص إنتي صح في كل حاجة!' },
+      { emoji: '🥺', title: 'مأفورة وزعلانة', badge: 'مصالحة بنوتة بابي', text: 'حقك عليا أنا يا ست البنات حتى لو مش عارف السبب! مفيش حاجة تستاهل تكشيرتك، اضحكي بقى عشان الدنيا بتنور بضحكتك ❤️' },
+      { emoji: '🍔', title: 'جعانة وعايزة آكل', badge: 'إنذار جوع خطير', text: 'ده أخطر مود! أوشا لما بتجوع مبيبقاش فيه تفاهم 😂 يلا قومي كلي حاجة حلوة بتحبيها بألف هنا على قلبك يا قمر.' },
+      { emoji: '🥰', title: 'محتاجة دلع واهتمام', badge: 'VIP Pampering Mode', text: 'إنتي متطلبيش دلع يا آيوش، الدلع كله اتعمل عشانك أصلًا! بحبك يا أحلى وأجمل وأطيب بنوتة في حياتي كلها ❤️✨' },
+      { emoji: '☕', title: 'مصدعة أو مرهقة', badge: 'راحة واسترخاء', text: 'سلامتك ألف سلامة يا بنوتة بابي... ريحي عينك واشربي حاجة دافية وخدي نفس عميق، كله هيهون ويبقى زي الفل ❤️' }
+    ];
+
+    // --- 2. SIDE DRAWER & 6 NEW SECTIONS LOGIC ---
+    const drawerOverlay = document.getElementById('side-drawer-overlay');
+    const drawerMenu = document.getElementById('drawer-view-menu');
+    const drawerBackBtn = document.getElementById('drawer-back-btn');
+    const drawerTitle = document.getElementById('drawer-title');
+
+    function showDrawerSection(sectionId) {
+      drawerMenu.classList.toggle('hidden', sectionId !== 'menu');
+      drawerBackBtn.classList.toggle('hidden', sectionId === 'menu');
+      document.querySelectorAll('.drawer-subview').forEach((el) => el.classList.add('hidden'));
+      if (sectionId !== 'menu') {
+        const targetEl = document.getElementById(`drawer-view-${sectionId}`);
+        if (targetEl) targetEl.classList.remove('hidden');
+      }
+      drawerTitle.textContent = sectionId === 'menu' ? '✨ أقسام ومفاجآت أوشا الإضافية' : '✨ مفاجآت أوشا التفاعلية';
+    }
+
+    document.getElementById('open-drawer-btn').addEventListener('click', () => {
+      playSound('box');
+      showDrawerSection('menu');
+      drawerOverlay.classList.remove('hidden');
+    });
+    document.getElementById('close-drawer-btn').addEventListener('click', () => {
+      playSound('tap');
+      drawerOverlay.classList.add('hidden');
+    });
+    document.getElementById('side-drawer-backdrop').addEventListener('click', () => {
+      drawerOverlay.classList.add('hidden');
+    });
+    drawerBackBtn.addEventListener('click', () => {
+      playSound('tap');
+      showDrawerSection('menu');
+    });
+    document.getElementById('toggle-sound-btn').addEventListener('click', (e) => {
+      soundMuted = !soundMuted;
+      e.currentTarget.textContent = soundMuted ? '🔇 صامت' : '🔊 الصوت';
+      if (!soundMuted) playSound('tap');
+    });
+
+    document.querySelectorAll('.drawer-nav-item').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        playSound('box');
+        showDrawerSection(btn.getAttribute('data-target'));
+      });
+    });
+
+    // 2.1 Wheel of Pampering
+    let wheelDeg = 0;
+    let wheelSpinning = false;
+    document.getElementById('spin-wheel-btn').addEventListener('click', () => {
+      if (wheelSpinning) return;
+      wheelSpinning = true;
+      document.getElementById('wheel-result-box').classList.add('hidden');
+      const idx = Math.floor(Math.random() * WHEEL_ITEMS.length);
+      wheelDeg += 1800 + Math.floor(Math.random() * 360);
+      document.getElementById('wheel-disc').style.transform = `rotate(${wheelDeg}deg)`;
+      for (let i = 1; i <= 10; i++) setTimeout(() => playSound('tick'), i * 240);
+      setTimeout(() => {
+        wheelSpinning = false;
+        playSound('win');
+        document.getElementById('wheel-result-title').textContent = `🎉 النتيجة: ${WHEEL_ITEMS[idx].label}`;
+        document.getElementById('wheel-result-desc').textContent = WHEEL_ITEMS[idx].detail;
+        document.getElementById('wheel-result-box').classList.remove('hidden');
+      }, 2650);
+    });
+
+    // 2.2 Mini Game (Heart & Crown Catcher — NO PDF)
+    const mgCanvas = document.getElementById('minigame-canvas');
+    const mgCtx = mgCanvas.getContext('2d');
+    let mgRunning = false;
+    let mgPlayerX = 160;
+    mgCanvas.addEventListener('pointermove', (e) => {
+      const r = mgCanvas.getBoundingClientRect();
+      mgPlayerX = Math.max(36, Math.min(284, ((e.clientX - r.left) / r.width) * 320));
+    });
+    mgCanvas.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        const r = mgCanvas.getBoundingClientRect();
+        mgPlayerX = Math.max(36, Math.min(284, ((e.touches[0].clientX - r.left) / r.width) * 320));
+      }
+    }, { passive: true });
+
+    document.getElementById('start-minigame-btn').addEventListener('click', () => {
+      if (mgRunning) return;
+      playSound('box');
+      mgRunning = true;
+      document.getElementById('minigame-overlay').classList.add('hidden');
+      let score = 0;
+      let timeLeft = 25;
+      const items = [];
+      const updateHud = () => {
+        document.getElementById('minigame-hud').textContent = `النقاط: ${score} | الوقت: ${timeLeft}ث`;
+      };
+      updateHud();
+
+      const spawner = setInterval(() => {
+        const r = Math.random();
+        const emoji = r > 0.82 ? '⛈️' : r > 0.6 ? '👑' : r > 0.35 ? '⭐' : '❤️';
+        const pts = emoji === '⛈️' ? -10 : emoji === '👑' ? 25 : emoji === '⭐' ? 15 : 10;
+        items.push({ x: 25 + Math.random() * 270, y: -20, speed: 2.2 + Math.random() * 1.8, emoji, pts });
+      }, 500);
+
+      const timer = setInterval(() => {
+        timeLeft--;
+        updateHud();
+        if (timeLeft <= 0) finishGame();
+      }, 1000);
+
+      function finishGame() {
+        mgRunning = false;
+        clearInterval(spawner);
+        clearInterval(timer);
+        playSound('win');
+        document.getElementById('minigame-status-title').textContent = `مبروك يا أشطر أوشا! جبتي ${score} نقطة! 👑`;
+        document.getElementById('minigame-status-sub').textContent = '"فثعونتي كسبت التحدي بجدارة! ربنا يملأ أيامك كلها فرحة وسعادة يا بنوتة بابي ❤️"';
+        document.getElementById('start-minigame-btn').textContent = 'العبي جولة تانية 🔄';
+        document.getElementById('minigame-overlay').classList.remove('hidden');
+      }
+
+      function loop() {
+        if (!mgRunning) return;
+        mgCtx.fillStyle = '#090B1C';
+        mgCtx.fillRect(0, 0, 320, 310);
+
+        mgCtx.fillStyle = '#FF8EBD';
+        mgCtx.fillRect(mgPlayerX - 34, 272, 68, 16);
+        mgCtx.font = '12px Cairo, sans-serif';
+        mgCtx.fillStyle = '#090B1C';
+        mgCtx.textAlign = 'center';
+        mgCtx.fillText('سلة أوشا', mgPlayerX, 284);
+
+        mgCtx.font = '24px sans-serif';
+        for (let i = items.length - 1; i >= 0; i--) {
+          const it = items[i];
+          it.y += it.speed;
+          mgCtx.fillText(it.emoji, it.x, it.y);
+          if (it.y >= 260 && it.y <= 290 && Math.abs(it.x - mgPlayerX) < 40) {
+            score = Math.max(0, score + it.pts);
+            updateHud();
+            playSound(it.pts > 0 ? 'heart' : 'tap');
+            items.splice(i, 1);
+          } else if (it.y > 325) {
+            items.splice(i, 1);
+          }
+        }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    });
+
+    // 2.3 Jar of 20 Reasons
+    let jarPool = TWENTY_REASONS.map((_, i) => i);
+    let jarSeenCount = 0;
+    function drawFromJar() {
+      playSound('jar');
+      if (jarPool.length === 0) jarPool = TWENTY_REASONS.map((_, i) => i);
+      const rIdx = Math.floor(Math.random() * jarPool.length);
+      const reasonIdx = jarPool.splice(rIdx, 1)[0];
+      jarSeenCount = Math.min(20, jarSeenCount + 1);
+      document.getElementById('jar-counter-badge').textContent = `${jarSeenCount} / 20`;
+      document.getElementById('jar-reason-num').textContent = `سبب رقم #${reasonIdx + 1} من 20 · خاص لـ آيوش ❤️`;
+      document.getElementById('jar-reason-text').textContent = `"${TWENTY_REASONS[reasonIdx]}"`;
+    }
+    document.getElementById('draw-jar-btn').addEventListener('click', drawFromJar);
+    document.getElementById('jar-visual-box').addEventListener('click', drawFromJar);
+
+    // 2.4 Download Passport & Certificate as PNG
+    function downloadOfficialPng(kind) {
+      playSound('win');
+      const c = document.createElement('canvas');
+      c.width = 900;
+      c.height = 540;
+      const ctx = c.getContext('2d');
+      const g = ctx.createLinearGradient(0, 0, 900, 540);
+      g.addColorStop(0, '#090B1C');
+      g.addColorStop(0.5, '#17102B');
+      g.addColorStop(1, '#24143D');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 900, 540);
+      ctx.strokeStyle = '#E9C88B';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(24, 24, 852, 492);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#E9C88B';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText(kind === 'passport' ? 'DIPLOMATIC GALACTIC PASSPORT · 11:11' : 'ROYAL ACADEMY OF 11:11 · CERTIFICATE', 450, 85);
+      ctx.fillStyle = '#F5EAF2';
+      ctx.font = 'bold 36px Cairo, sans-serif';
+      ctx.fillText(kind === 'passport' ? 'جواز سفر كوكب أوشا الرسمي 🪐' : 'شهادة تقدير ودلع رسمية موثقة 📜', 450, 150);
+      ctx.fillStyle = '#FF8EBD';
+      ctx.font = 'bold 26px Cairo, sans-serif';
+      ctx.fillText('آيوش (أوشا) — فثعونتي وبنوتة بابي ❤️', 450, 225);
+      ctx.fillStyle = '#F5EAF2';
+      ctx.font = '22px Cairo, sans-serif';
+      ctx.fillText('تاريخ الميلاد: 01.01.2008   |   تاريخ بداية الحكاية: 03.10.2024', 450, 295);
+      ctx.fillText('لقب رسمي معتمد: أحلى وأجمل بنوتة في حياتي كلها ✨', 450, 350);
+      ctx.fillStyle = '#E9C88B';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText('APPROVED & STAMPED FOREVER AT 11:11 ❤️', 450, 440);
+      const a = document.createElement('a');
+      a.download = kind === 'passport' ? 'osha-passport-1111.png' : 'osha-certificate-1111.png';
+      a.href = c.toDataURL('image/png');
+      a.click();
+    }
+    document.getElementById('download-passport-btn').addEventListener('click', () => downloadOfficialPng('passport'));
+    document.getElementById('download-cert-btn').addEventListener('click', () => downloadOfficialPng('cert'));
+
+    // 2.5 Mood Selector
+    const moodGrid = document.getElementById('mood-buttons-grid');
+    MOODS.forEach((m) => {
+      const btn = document.createElement('button');
+      btn.className = 'p-3.5 rounded-2xl bg-[#090B1C] border border-[#E9C88B]/30 hover:border-[#FF8EBD] text-right transition-all cursor-pointer';
+      btn.innerHTML = `<div class="text-2xl mb-1">${m.emoji}</div><div class="text-xs font-extrabold text-[#F5EAF2]">${m.title}</div>`;
+      btn.addEventListener('click', () => {
+        playSound('star');
+        document.getElementById('mood-badge').textContent = m.badge;
+        document.getElementById('mood-emoji').textContent = m.emoji;
+        document.getElementById('mood-prescription').textContent = `"${m.text}"`;
+      });
+      moodGrid.appendChild(btn);
+    });
+
+    // --- 3. MAIN PAGE UI & COUNTER ---
     const introPortal = document.getElementById('intro-portal');
     const closeIntro = () => {
+      playSound('win');
       introPortal.style.opacity = '0';
       setTimeout(() => introPortal.classList.add('hidden'), 650);
     };
@@ -482,6 +1065,7 @@
 
     let msgIdx = 0;
     document.getElementById('random-msg-btn').addEventListener('click', () => {
+      playSound('envelope');
       msgIdx = (msgIdx + 1) % LETTERS.length;
       document.getElementById('random-msg-display').textContent = `"${LETTERS[msgIdx].body}"`;
     });
@@ -504,32 +1088,34 @@
     updateCounter();
     setInterval(updateCounter, 1000);
 
-    // Hidden Hearts
     const foundHearts = new Set();
     document.querySelectorAll('.heart-hunt-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
+        playSound('heart');
         const id = btn.getAttribute('data-heart');
         foundHearts.add(id);
         btn.querySelector('.heart-label').textContent = `تم اكتشاف القلب #${id} ✨`;
         document.getElementById('nav-hearts-badge').textContent = `❤️ القلوب: ${foundHearts.size} / 5`;
         if (foundHearts.size === 5) {
+          playSound('win');
           document.getElementById('all-hearts-reward').classList.remove('hidden');
         }
       });
     });
 
-    // Quiz & Scratch Card
     document.querySelectorAll('.quiz-opt').forEach((btn) => {
       btn.addEventListener('click', () => {
+        playSound('win');
         document.getElementById('quiz-feedback').textContent = 'إجابة صحيحة 100%! أوشا دايمًا كسبانة في كل حاجة 😂❤️';
       });
     });
     document.getElementById('scratch-card-box').addEventListener('click', (e) => {
+      playSound('jar');
       e.currentTarget.className = 'p-6 rounded-2xl bg-[#090B1C] border border-[#FF8EBD] text-[#F5EAF2] text-center font-extrabold';
       e.currentTarget.textContent = '"مفاجأة إضافية لـ فثعونتي: ضحكتك عندي بالدنيا كلها يا أحلى بنوتة بابي 😂❤️"';
     });
 
-    // --- 3. SHARED THREE.JS HELPER ---
+    // --- 4. SHARED THREE.JS HELPER ---
     function createHeartShape(scale = 1) {
       const s = new THREE.Shape();
       s.moveTo(0, 0.25 * scale);
@@ -592,7 +1178,7 @@
       animate();
     }
 
-    // --- 4. SCENE 1: PERSISTENT 3D UNIVERSE BACKGROUND ---
+    // --- 5. SCENE 1: 3D UNIVERSE BACKGROUND ---
     mountScene('bg-3d-canvas', 11, (scene) => {
       const moonGroup = new THREE.Group();
       moonGroup.position.set(-3.4, 2.5, -2);
@@ -621,13 +1207,13 @@
       };
     });
 
-    // --- 5. SCENE 2: 11 3D LOVE ENVELOPES ---
+    // --- 6. SCENE 2: 11 3D LOVE ENVELOPES ---
     let activeLetterIdx = 0;
     const openedLetters = new Set([1]);
-    let envelopeFlaps = [];
-    let envelopeCards = [];
+    const envelopeCards = [];
 
-    function selectLetter(idx) {
+    function selectLetter(idx, withSound = true) {
+      if (withSound) playSound('envelope');
       activeLetterIdx = idx;
       const item = LETTERS[idx];
       openedLetters.add(item.id);
@@ -646,7 +1232,7 @@
         const isActive = i === activeLetterIdx;
         btn.className = `p-3 rounded-xl border text-right transition-all cursor-pointer ${isActive ? 'bg-[#241845] border-[#FF8EBD]' : 'bg-[#090B1C]/80 border-[#E9C88B]/25 hover:border-[#E9C88B]'}`;
         btn.innerHTML = `<div class="text-[10px] font-mono-num text-[#E9C88B]">LETTER ${String(l.id).padStart(2, '0')}</div><div class="text-xs font-extrabold text-[#F5EAF2] mt-0.5">${l.title}</div>`;
-        btn.addEventListener('click', () => selectLetter(i));
+        btn.addEventListener('click', () => selectLetter(i, true));
         grid.appendChild(btn);
       });
     }
@@ -689,7 +1275,6 @@
         flap.scale.set(1.3, 1, 0.15);
         flap.position.set(0, 0.25, 0.05);
         env.add(flap);
-        envelopeFlaps.push(flap);
 
         const seal = new THREE.Mesh(
           new THREE.CylinderGeometry(0.13, 0.13, 0.05, 20),
@@ -710,7 +1295,7 @@
         pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
         const hits = raycaster.intersectObjects(clickTargets);
-        if (hits.length > 0) selectLetter(hits[0].object.userData.index);
+        if (hits.length > 0) selectLetter(hits[0].object.userData.index, true);
       });
 
       return (t) => {
@@ -722,12 +1307,13 @@
       };
     });
 
-    // --- 6. SCENE 3: 5 3D MYSTERY BOXES ---
+    // --- 7. SCENE 3: 5 3D MYSTERY BOXES ---
     let activeBoxIdx = 0;
     const openedBoxes = new Set([1]);
     const boxLids = [];
 
-    function selectBox(idx) {
+    function selectBox(idx, withSound = true) {
+      if (withSound) playSound('box');
       activeBoxIdx = idx;
       const b = BOXES[idx];
       openedBoxes.add(b.id);
@@ -745,7 +1331,7 @@
         const isActive = i === activeBoxIdx;
         btn.className = `p-3.5 rounded-xl border text-right transition-all cursor-pointer ${isActive ? 'bg-[#241845] border-[#FF8EBD]' : 'bg-[#090B1C]/80 border-[#E9C88B]/25 hover:border-[#E9C88B]'}`;
         btn.innerHTML = `<div class="text-[10px] font-mono-num text-[#E9C88B]">${b.en}</div><div class="text-sm font-extrabold text-[#F5EAF2] mt-0.5">${b.title}</div>`;
-        btn.addEventListener('click', () => selectBox(i));
+        btn.addEventListener('click', () => selectBox(i, true));
         grid.appendChild(btn);
       });
     }
@@ -784,7 +1370,7 @@
         pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
         const hits = raycaster.intersectObjects(clickTargets);
-        if (hits.length > 0) selectBox(hits[0].object.userData.index);
+        if (hits.length > 0) selectBox(hits[0].object.userData.index, true);
       });
 
       return (t) => {
@@ -796,9 +1382,10 @@
       };
     });
 
-    // --- 7. SCENE 4: 3D PDF CLASSIFIED FOLDER ---
+    // --- 8. SCENE 4: 3D PDF CLASSIFIED FOLDER ---
     let pdfOpen = false;
     function togglePdf() {
+      playSound('pdf');
       pdfOpen = !pdfOpen;
       const area = document.getElementById('pdf-content-area');
       if (pdfOpen) {
@@ -843,14 +1430,16 @@
       };
     });
 
-    // --- 8. SCENE 5: 3D 3-TIER BIRTHDAY CAKE WITH GOLD PEARLS & 5 CANDLES ---
+    // --- 9. SCENE 5: 3D 3-TIER BIRTHDAY CAKE WITH GOLD PEARLS & 5 CANDLES ---
     let candlesLit = true;
     const flames = [];
     document.getElementById('blow-candles-btn').addEventListener('click', () => {
+      playSound('win');
       candlesLit = false;
       document.getElementById('cake-wish-box').classList.remove('hidden');
     });
     document.getElementById('relight-candles-btn').addEventListener('click', () => {
+      playSound('star');
       candlesLit = true;
       document.getElementById('cake-wish-box').classList.add('hidden');
     });
@@ -859,14 +1448,12 @@
       const cake = new THREE.Group();
       cake.position.y = -0.85;
 
-      // Gold Plate
       const plate = new THREE.Mesh(
         new THREE.CylinderGeometry(2.35, 2.5, 0.12, 48),
         new THREE.MeshStandardMaterial({ color: 0xe9c88b, roughness: 0.2, metalness: 0.85 })
       );
       cake.add(plate);
 
-      // Tier 1 (Cream White) + Pink Frosting Ring
       const t1 = new THREE.Mesh(
         new THREE.CylinderGeometry(1.9, 1.9, 0.85, 48),
         new THREE.MeshStandardMaterial({ color: 0xfff8fb, roughness: 0.35 })
@@ -881,7 +1468,6 @@
       ring1.position.y = 0.9;
       cake.add(ring1);
 
-      // Tier 2 (Soft Rose Pink) + Gold Pearls
       const t2 = new THREE.Mesh(
         new THREE.CylinderGeometry(1.38, 1.38, 0.78, 48),
         new THREE.MeshStandardMaterial({ color: 0xffb6d5, roughness: 0.3 })
@@ -898,22 +1484,17 @@
         cake.add(p);
       }
 
-      // Tier 3 (Top White Tier + Gold Crown Ring)
       const t3 = new THREE.Mesh(
         new THREE.CylinderGeometry(0.92, 0.92, 0.62, 48),
         new THREE.MeshStandardMaterial({ color: 0xfff8fb, roughness: 0.3 })
       );
       t3.position.y = 1.98;
       cake.add(t3);
-      const ring3 = new THREE.Mesh(
-        new THREE.TorusGeometry(0.92, 0.085, 16, 48),
-        pearlMat
-      );
+      const ring3 = new THREE.Mesh(new THREE.TorusGeometry(0.92, 0.085, 16, 48), pearlMat);
       ring3.rotation.x = Math.PI / 2;
       ring3.position.y = 2.3;
       cake.add(ring3);
 
-      // 5 Candles + Flickering Golden Flames
       const candleOffsets = [-0.45, -0.22, 0, 0.22, 0.45];
       candleOffsets.forEach((cx, idx) => {
         const cz = (idx % 2 === 0 ? 0.12 : -0.12);
@@ -936,6 +1517,7 @@
       scene.add(cake);
       container.addEventListener('pointerdown', () => {
         candlesLit = !candlesLit;
+        playSound(candlesLit ? 'star' : 'win');
         document.getElementById('cake-wish-box').classList.toggle('hidden', candlesLit);
       });
 
@@ -948,15 +1530,17 @@
       };
     });
 
-    // --- 9. SCENE 6: 7 3D WISHING STARS ---
+    // --- 10. SCENE 6: 7 3D WISHING STARS ---
     const chosenStars = new Set();
     function selectStar(idx) {
+      playSound('star');
       const s = STARS[idx];
       chosenStars.add(s.id);
       document.getElementById('stars-count-badge').textContent = `النجوم المختارة: ${Math.min(chosenStars.size, 3)} / 3`;
       document.getElementById('active-star-title').textContent = `${s.title} · رسالة النجمة:`;
       document.getElementById('active-star-msg').textContent = `"${s.msg}"`;
       if (chosenStars.size >= 3) {
+        playSound('win');
         document.getElementById('stars-unlocked-secret').classList.remove('hidden');
       }
     }
@@ -1002,9 +1586,10 @@
       };
     });
 
-    // --- 10. SCENE 7: 3D UNFOLDING MYSTERY GIFT ---
+    // --- 11. SCENE 7: 3D UNFOLDING MYSTERY GIFT ---
     let giftOpen = false;
     function toggleGift() {
+      playSound('box');
       giftOpen = !giftOpen;
       document.getElementById('gift-secret-msg').classList.toggle('hidden', !giftOpen);
     }
